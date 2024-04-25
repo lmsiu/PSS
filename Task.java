@@ -1,11 +1,11 @@
 public class Task {
     private String name;
-    private String typeCategory;
+    private TypeCategory typeCategory;
     private float startTime;
     private float duration;
     private int date;
 
-    Task(String name, String typeCategory, float startTime, float duration, int date) {
+    Task(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
         this.name = name;
         this.typeCategory = typeCategory;
         this.startTime = startTime;
@@ -26,12 +26,12 @@ public class Task {
         return name;
     }
 
-    public void setTypeCategory(String typeCategory){
+    public void setTypeCategory(TypeCategory typeCategory){
         this.typeCategory = typeCategory;
 
     }
 
-    public String getTypeCategory(){
+    public TypeCategory getTypeCategory(){
         return typeCategory;
     }
 
@@ -60,5 +60,10 @@ public class Task {
         return date;
     }
 
+}
 
+enum TypeCategory{
+    RECURRING,
+    TRANSIENT,
+    ANTITASK,
 }
