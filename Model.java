@@ -8,7 +8,7 @@ public class Model {
         taskList = new LinkedList<Task>();
     }
 
-    public void createTask(String name, String typeCategory, int duration, int date) {
+    public void createTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) throws Exception {
     	for(Task task : taskList) {
     		//Verify if name is unique
     		if(task.getName() == name) {
@@ -20,7 +20,7 @@ public class Model {
     	}
     	
     	//Create task
-    	taskList.add(new Task(name, typeCategory, duration, date);
+    	taskList.add(new Task(name, typeCategory, startTime, duration, date));
     }
 
     public void editTask() {
