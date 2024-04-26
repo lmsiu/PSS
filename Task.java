@@ -1,8 +1,8 @@
 public class Task {
     private String name;
     private TypeCategory typeCategory;
-    private float startTime;
-    private float duration;
+    private double startTime;
+    private double duration;
     private int date;
 
     Task(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
@@ -35,20 +35,31 @@ public class Task {
         return typeCategory;
     }
 
-    public void setStartTime(float startTime){
-        this.startTime = startTime;
+    public void setStartTime(double startTime){
+        if(startTime >= 0 && startTime <= 23.75){
+            // round to the nearest 15 minutes
+
+            double temp = startTime/0.15;
+
+            int fifteens = (int) temp;
+            startTime = fifteens*0.15;
+
+            this.startTime = startTime;
+
+        }
+        
     }
 
-    public float getStartTime(){
+    public double getStartTime(){
         return startTime;
     }
 
     
-    public void setDuration(float duration){
+    public void setDuration(double duration){
         this.duration = duration;
     }
 
-    public float getDuration(){
+    public double getDuration(){
         return duration;
     }
 
@@ -56,7 +67,7 @@ public class Task {
         this.date = date;
     }
 
-    public float getDate(){
+    public int getDate(){
         return date;
     }
 
