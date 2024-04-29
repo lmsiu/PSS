@@ -10,35 +10,27 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Model {
-    LinkedList<Task> taskList;
-
-    Model() {
-        taskList = new LinkedList<Task>();
-    }
+    LinkedList<Task> taskList = new LinkedList<Task>();
 
     /**
-     * Create a task. If the name of the task is not unique, throws an exception. If the task overlaps with
+     * Add a task to the schedule. If the name of the task is not unique, throws an exception. If the task overlaps with
      * any other task, throws an exception. On success, creates the task and adds it to the database
      *
-     * @param	name	 Name of the task to be created
-     * @param	typeCategory	Category of the task
-     * @param	startTime	Start time of the task
-     * @param	duration	Duration of the task
-     * @param	date	Date of the task
+     * @param	Task	 Task to be added to the schedule
+     * @throws Exception A task with name __ already exists!
+     * @throws Exception Cannot add task to schedule because it conflicts with other task(s)!
      */
-    public void createTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) throws Exception {
+    public void createTask(Task newTask) throws Exception {
     	for(Task task : taskList) {
     		//Verify if name is unique
-    		if(task.getName() == name) {
-    			throw new Exception("A task with name" + name + "already exists!");
-    		}
+    		if(task.getName() == newTask.getName())
+    			throw new Exception("A task with name" + newTask.getName() + "already exists!");
     		
-    		//Verify that task does not overlap with any other task
-    		//STUB
+    		if(!verifyTask(task))
+    			throw new Exception("Cannot add task to schedule because it conflicts with other task(s)!");
     	}
     	
-    	//Create task
-    	Task newTask = new Task(name, typeCategory, startTime, duration, date);
+    	//Add task to schedule
     	taskList.add(newTask);
     }
     
@@ -59,27 +51,50 @@ public class Model {
     }
 
     /**
-     * Edit a task with any given parameters
+     * Search for a task with a matching name in the schedule with the provided task. If names match,
+     * verify that new task values are valid. If valid, replace old task with the edited task.
      *
-     * @param	name	 Name of the task to be edited
-     * @param	typeCategory	Category of the task
-     * @param	startTime	Start time of the task
-     * @param	duration	Duration of the task
-     * @return	Task with matching name. Null if not found
+     * @param	task Edited task
+     * @throws Exception Edited Task does not match names with any Task in the schedule!
+     * @throws Exception Edited task values are not valid!
      */
-    public void editTask() {
-        //stub
+    public void editTask(Task editedTask) throws Exception {
+    	for(Task task : taskList) {
+    		if(task.getName() == editedTask.getName()) {
+    			if(verifyTask(editedTask)) {
+    				taskList.remove(task);
+    				taskList.add(editedTask);
+    			}
+    		}
+    	}
+    	throw new Exception("Edited Task does not match names with any Task in the schedule!");
     }
 
     /**
      * Delete a task given its name
      *
      * @param	name	 Name of the task to be deleted
-     * @return	Task with matching name. Null if not found
+     * @throws Exception Task to delete does not match names with any tasks in the schedule!
      */
-    public void deleteTask(String name) {
+    public void deleteTask(String name) throws Exception {
         Task taskToDelete = findTask(name);
+        if(taskToDelete == null) throw new Exception("Task to delete does not match names with any tasks in the schedule!");
         
+        switch(taskToDelete.getTypeCategory()) {
+        case RECURRING:
+        	//any antitasks associated with this recurring task are deleted
+        	//STUB
+        	break;
+        case TRANSIENT:
+        	taskList.remove(taskToDelete);
+        	break;
+        case ANTITASK:
+        	//if deleting antitask would leave a conflict between two recurring tasks
+        	//or between a recurring and a transient task:
+        	//do NOT delete task, and throw an error
+        	//STUB
+        	break;
+        }
     }
 
     /**
@@ -88,14 +103,7 @@ public class Model {
      * @param	fileName	 Name of the json file to create
      * @throws Exception 
      */
-    public void writeData(String fileName) throws Exception {
-    	File file = null;    
-        try {
-        	file = new File(fileName+".json");
-        } catch(NullPointerException e) {
-        	throw new Exception("File already exists!");
-        }
-        
+    public void writeData(String fileName) throws Exception {        
         PrintWriter writer = null;
         try {
         	writer = new PrintWriter(fileName+".json");
@@ -107,15 +115,15 @@ public class Model {
         		jo.put("Duration", task.getDuration());
         		
         		switch(task.getClass().toString()) {
-        		case "RecurringTask":
+        		case "RECURRING":
         			//jo.put("Frequency", task.getFrequency());
         			//jo.put("StartDate", task.getStartDate());
         			//jo.put("EndDate", task.getEndDate())
         			break;
-        		case "CancellationTask":
+        		case "TRANSIENT":
         			//STUB
         			break;
-        		case "Transient Task":
+        		case "ANTITASK":
         			//STUB
         			break;
         		}
@@ -149,13 +157,13 @@ public class Model {
         for(Object o : ja) {
         	JSONObject jo = (JSONObject) o;
         	try {
-				createTask(
+				createTask(new Task(
 					(String)jo.get("Name"),
 					(TypeCategory)jo.get("TypeCategory"),
 					(float)jo.get("StartTime"),
 					(float)jo.get("Duration"),
 					(int)jo.get("Date")
-				);
+				));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -164,5 +172,9 @@ public class Model {
 
     public LinkedList<Task> returnTaskList() {
         return taskList;
+    }
+    
+    private boolean verifyTask(Task task) {
+    	return true; //STUB
     }
 }
