@@ -9,12 +9,12 @@ public class Task {
         //empty constructor 
     }
 
-    Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, float duration, int date) {
+    Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int date) {
         this.name = name;
         this.typeCategory = typeCategory;
-        this.duration = duration;
         this.date = date;
         setStartTime(startTimeHour, startTimeMinute, AM);
+        setDuration(durationHour, durationMinutes);
         
     }
 
@@ -72,8 +72,8 @@ public class Task {
     }
 
     
-    public void setDuration(double duration){
-        this.duration = duration;
+    public void setDuration(int durationHour, int durationMinute){
+        duration = durationHour + roundFifteen(durationMinute);
     }
 
     public double getDuration(){
