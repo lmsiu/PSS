@@ -10,8 +10,8 @@ public static void main(String[] args)
         task.setStartTime(12);
         System.out.println(task.getStartTime());
 
+        // should throw an error
         task.setStartTime(24);
-        System.out.println(task.getStartTime());
     }
 
 }
