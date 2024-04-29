@@ -9,7 +9,7 @@ public class Task {
         //empty constructor 
     }
 
-    Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int date) {
+    Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
         this.name = name;
         this.typeCategory = typeCategory;
         this.date = date;
@@ -80,8 +80,8 @@ public class Task {
         return duration;
     }
 
-    public void setDate(int date){
-        this.date = date;
+    public void setDate(int year, int month, int day){
+        date = (year*10000) + (month*100) + day;
     }
 
     public int getDate(){

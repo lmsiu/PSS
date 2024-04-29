@@ -20,6 +20,17 @@ public static void main(String[] args)
         System.out.println(task.getDuration());
         task.setDuration(10, 36);
         System.out.println(task.getDuration());
+
+        task.setDate(2022, 04, 30);
+        System.out.println(task.getDate());
+
+        task.setDate(2022, 12, 01);
+        System.out.println(task.getDate());
+
+        task.setDate(2000, 05, 15);
+        System.out.println(task.getDate());
+
+
     }
 
 }
