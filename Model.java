@@ -25,6 +25,7 @@ public class Model {
     		if(task.getName() == newTask.getName())
     			throw new Exception("A task with name" + newTask.getName() + "already exists!");
     		
+    		//Verify that task doesn't overlap with other tasks
     		if(!verifyTask(task))
     			throw new Exception("Cannot add task to schedule because it conflicts with other task(s)!");
     	}
@@ -173,7 +174,32 @@ public class Model {
         return taskList;
     }
     
-    private boolean verifyTask(Task task) {
-    	return true; //STUB
+    private boolean verifyTask(Task taskToVerify) {
+		for(Task task : taskList) {
+	    	switch(taskToVerify.getTypeCategory()) {
+	    	case RECURRING:
+	    		//Verify that every instance of taskToVerify does not overlap with any task
+	    		
+	    		break;
+	    	case TRANSIENT:
+				if(task.getDate() == taskToVerify.getDate() && task.getStartTime() == taskToVerify.getStartTime())
+					return false;
+				if(task.getStartTime() < taskToVerify.getStartTime() &&
+						task.getStartTime() + task.getDuration() > taskToVerify.getStartTime())
+					return false;
+				if(task.getTypeCategory() == TypeCategory.RECURRING) {
+					//Verify that every instance of recurring task does not overlap with taskToVerify
+					
+				}
+	    		break;
+	    	case ANTITASK:
+	    		//Verify that taskToVerify does not overlap with any transient or antitasks.
+	    		//Verify that taskToVerify matches with an instance of a recurring task
+	    		break;
+			default:
+				break;
+	    	}
+		}
+    	return true;
     }
 }
