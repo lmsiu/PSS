@@ -4,9 +4,13 @@ public static void main(String[] args)
     {
         Task task = new Task();
 
-        double testStartTime = 12.10;
+        task.setStartTime(12.10);
+        System.out.println(task.getStartTime());
 
-        task.setStartTime(testStartTime);
+        task.setStartTime(12);
+        System.out.println(task.getStartTime());
+
+        task.setStartTime(24);
         System.out.println(task.getStartTime());
     }
 

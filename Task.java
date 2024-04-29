@@ -36,16 +36,23 @@ public class Task {
     }
 
     public void setStartTime(double startTime){
-        if(startTime >= 0 && startTime <= 23.75){
-            // round to the nearest 15 minutes
 
-            double temp = startTime/0.15;
-
-            int fifteens = (int) temp;
-            startTime = fifteens*0.15;
-
-            this.startTime = startTime;
-
+        // add try catch for if it dosent work
+        try {
+            if(startTime >= 0 && startTime <= 23.75){
+                // round to the nearest 15 minutes
+    
+                double temp = startTime/0.15;
+    
+                int fifteens = (int) temp;
+                startTime = fifteens*0.15;
+    
+                this.startTime = startTime;
+            }else{
+                throw new TaskNotCreatedEexcption("Invalid start time");
+            }
+        } catch (TaskNotCreatedEexcption e) {
+           System.out.println(e.getMessage());
         }
         
     }
@@ -77,4 +84,14 @@ enum TypeCategory{
     RECURRING,
     TRANSIENT,
     ANTITASK,
+}
+
+// exception for if the task is not initalized
+class TaskNotCreatedEexcption extends Exception{
+    public TaskNotCreatedEexcption(String errorMessage){
+        super(errorMessage);
+
+    }
+
+
 }
