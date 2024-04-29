@@ -12,9 +12,9 @@ public class Task {
     Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
         this.name = name;
         this.typeCategory = typeCategory;
-        this.date = date;
         setStartTime(startTimeHour, startTimeMinute, AM);
         setDuration(durationHour, durationMinutes);
+        setDate(dateYear, dateMonth, dateDay);
         
     }
 
