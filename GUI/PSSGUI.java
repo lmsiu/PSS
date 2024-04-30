@@ -1,3 +1,4 @@
+package GUI;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class PSSGUI {
  
         // adding button
         JPanel panel = new JPanel( );
+        panel.setLayout(new BoxLayout(panel,  BoxLayout.Y_AXIS));
 
         panel.add(createTaskText);
         panel.add(createTaskButton);
@@ -27,12 +29,17 @@ public class PSSGUI {
  
         // 400 width and 500 height
         frame.setSize(500, 600);
- 
-        // using no layout managers
-        //frame.setLayout(null);
- 
+
         // making the frame visible
         frame.setVisible(true);
+
+        createTaskButton.addActionListener(e ->
+        {
+            CreateTaskGUI createTaskGUI = new CreateTaskGUI();
+            JFrame createTaskFrame = createTaskGUI.getCreateTaskScreen();
+            frame.setVisible(false);
+            createTaskFrame.setVisible(true);
+        });
     }
 
     // create button method to ensure uniform buttons are created
