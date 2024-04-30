@@ -202,4 +202,10 @@ public class Model {
 		}
     	return true;
     }
+    
+    private boolean verifyReccurring(Task taskToVerify, Task recurringTask) {
+    	
+    	
+    	return true;
+    }
 }
