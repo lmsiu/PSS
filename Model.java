@@ -182,11 +182,7 @@ public class Model {
 	    		
 	    		break;
 	    	case TRANSIENT:
-				if(task.getDate() == taskToVerify.getDate() && task.getStartTime() == taskToVerify.getStartTime())
-					return false;
-				if(task.getStartTime() < taskToVerify.getStartTime() &&
-						task.getStartTime() + task.getDuration() > taskToVerify.getStartTime())
-					return false;
+
 				if(task.getTypeCategory() == TypeCategory.RECURRING) {
 					//Verify that every instance of recurring task does not overlap with taskToVerify
 					
@@ -203,8 +199,35 @@ public class Model {
     	return true;
     }
     
+    private boolean verifyTransient(int checkDate, double checkStartTime, double checkDuration, int verifyDate, double verifyStartTime, double verifyDuration) {
+		if(checkDate == verifyDate) {
+			if(checkStartTime == verifyStartTime)
+				return false;
+			if(checkStartTime < verifyStartTime &&
+					checkStartTime + checkDuration > verifyStartTime)
+				return false;
+			if(verifyStartTime + verifyDuration > checkStartTime)
+				return false;
+		}
+			
+		return true;
+    }
+    
     private boolean verifyReccurring(Task taskToVerify, Task recurringTask) {
+    	int firstDate = recurringTask.getDate();
     	
+    	for(int currentDate = firstDate; currentDate < taskToVerify.getDate(); currentDate + (RecurringTask)recurringTask.getFrequency()) {
+    		if (verifyTransient(
+						currentDate,
+						recurringTask.getStartTime(),
+						recurringTask.getDuration(),
+						taskToVerify.getDate(),
+						taskToVerify.getStartTime(),
+						taskToVerify.getDuration()
+					)) {
+    			return false;
+    		}
+    	}
     	
     	return true;
     }
