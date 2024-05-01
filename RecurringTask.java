@@ -1,5 +1,4 @@
-import java.time.LocalDate;
-
+import java.util.*;
 public class RecurringTask extends Task{
     private String name;
     private String typeCategory;
@@ -10,6 +9,7 @@ public class RecurringTask extends Task{
     private int endDate;
     private int frequency;
 
+    // Constructor for RecurringTask
     RecurringTask(String taskName,String typeCat, double startTime, double duration, String type, int startDate, int endDate, int frequency) {
         this.name = taskName;
         this.typeCategory = typeCat;
@@ -20,7 +20,8 @@ public class RecurringTask extends Task{
         this.endDate = endDate;
         this.frequency = frequency;
     }
-    // The given string has to match (Case Sensitive) one of the strings that we've selected as a recurring task
+
+    // Sets the type for the recurring task. The given string has to match (Case Sensitive) one of the given values
     public void setTaskType(String taskType){
         this.type = taskType;
 
@@ -33,11 +34,13 @@ public class RecurringTask extends Task{
             throw new IllegalArgumentException("Invalid task type. Must be one of: " + validTaskTypes);
         }
     }
-}
+
+    // Returns the string value for the recurring tasks type
     public String getTaskType(){
         return type;
     }
-    // Must be a valid date, so months are from 01 to 12 and days from 01 to whatever the last day of that month would be
+
+    // Sets the task's start date after checking to make sure the given date is valid
     public void setStartDate(int startingDate) {
         if (!isValidDate(startingDate)) {
             throw new IllegalArgumentException("Invalid start date. Must be a valid date.");
@@ -45,6 +48,7 @@ public class RecurringTask extends Task{
         this.startDate = startingDate;
     }
 
+    // Sets the task's end date after checking to make sure the given date is valid as an end date
     public void setEndDate(int finalDate) {
         if (!isValidDate(finalDate)) {
             throw new IllegalArgumentException("Invalid end date. Must be a valid date.");
@@ -55,6 +59,7 @@ public class RecurringTask extends Task{
         this.endDate = finalDate;
     }
 
+    // Method to ensure that the inputted integer for date has a valid year, month, and day within the month.
     private boolean isValidDate(int date) {
         int year = date / 10000;
         int month = (date % 10000) / 100;
@@ -76,13 +81,17 @@ public class RecurringTask extends Task{
         return true;
     }
 
+    // Checks to see if the year within date is a leap year
     private boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
+    // Returns the integer value for the recurring tasks endDate variable
     public int getEndDate() {
         return endDate;
     }
+
+    // Sets the frequency for the recurring task, must be a number between 1 and 7
     public void setFrequency(int freq) {
         if (freq < 1 || freq > 7) {
             throw new IllegalArgumentException("Frequency must be a value between 1 and 7.");
@@ -90,6 +99,8 @@ public class RecurringTask extends Task{
         this.frequency = freq;
     }
 
+    // Returns the integer value for the recurring tasks frequency
     public int getFrequency() {
         return frequency;
     }
+}
