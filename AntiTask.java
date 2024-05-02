@@ -2,11 +2,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AntiTask extends Task {
-    private String name;
-    private TypeCategory typeCategory;
-    private float startTime;
-    private float duration;
-    private String type;
     
     public AntiTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
         super(name, typeCategory, startTime, duration, date);  
