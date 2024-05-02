@@ -1,69 +1,42 @@
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
 public class TransientTaskController {
     private Model model;
-    
-    class TaskNotCreatedException extends Exception {
-        public TaskNotCreatedException(String errorMessage) {
-            super(errorMessage);
-        }
-    }
-    
-    // Constructor: Initializes the TransientTaskController with a reference to the Model
+
     public TransientTaskController(Model model) {
         this.model = model;
     }
 
-   // Method to create a transient task
-   public void createTransientTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
-    try {
-        // Create a new TransientTask object with the provided parameters
-        TransientTask task = new TransientTask(name, typeCategory, startTime, duration, date);
-        
-        // Delegate task creation to the model
-        model.createTask(task);
-        
-        // Print a success message if the task is created successfully
-        System.out.println("Transient task created successfully.");
-    } catch (TaskNotCreatedException e) {
-        // Print an error message if a TaskNotCreatedException is caught
-        System.out.println("Error: " + e.getMessage());
-    } catch (Exception e) {
-        // Print a generic error message if any unexpected exception occurs
-        System.out.println("An unexpected error occurred: " + e.getMessage());
-    }
-}
+    // List of valid task types for transients
+    private static final List<String> VALID_TASK_TYPES = Arrays.asList("Visit", "Shopping", "Appointment");
 
-    
-    // Method to edit a transient task
-    public void editTransientTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
-        try {
-            TransientTask editedTask = new TransientTask(name, typeCategory, startTime, duration, date);
-            model.editTask(editedTask); // Delegate task editing to the model
-            System.out.println("Transient task edited successfully.");
-        } catch (Exception e) {
-            System.out.println("Error editing transient task: " + e.getMessage());
+    // Method to validate the task type
+    public void validateTaskType(String taskType) {
+        // Check if the given task type is valid (case-sensitive)
+        if (!VALID_TASK_TYPES.contains(taskType)) {
+            throw new IllegalArgumentException("Invalid task type. Must be one of: " + VALID_TASK_TYPES);
         }
     }
 
-    // Method to find a task by name
-public void findTaskByName(String name) {
-    // Call the findTask method in the Model class to search for a task by name
-    Task foundTask = model.findTask(name);
-    
-    // Check if the task is found
-    if (foundTask != null) {
-        // Print task information if found
-        System.out.println("Task found:");
-        System.out.println("Name: " + foundTask.getName()); // Print task name
-        System.out.println("Type: " + foundTask.getTypeCategory()); // Print task type
-        System.out.println("Start Time: " + foundTask.getStartTime()); // Print task start time
-        System.out.println("Duration: " + foundTask.getDuration()); // Print task duration
-        System.out.println("Date: " + foundTask.getDate()); // Print task date
-    } else {
-        // Print message if task is not found
-        System.out.println("Task not found with the name: " + name);
+    // Method to validate all attributes are filled in for transient task (work in progress)
+    public void validateTransientTask(String name, TypeCategory typeCategory, Date date, float startTime, float duration) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty.");
+        }
+        if (typeCategory != TypeCategory.TRANSIENT) {
+            throw new IllegalArgumentException("Type category must be TRANSIENT.");
+        }
+        if (date == null) {
+            throw new IllegalArgumentException("Date cannot be null.");
+        }
+        if (startTime < 0 || startTime >= 24) {
+            throw new IllegalArgumentException("Start time must be between 0 and 24 hours.");
+        }
+        if (duration <= 0) {
+            throw new IllegalArgumentException("Duration must be greater than 0.");
+        }
     }
 }
 
-
-
-}
