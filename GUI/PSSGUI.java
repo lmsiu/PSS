@@ -13,10 +13,10 @@ public class PSSGUI {
         // Creating instance of JButton
         JButton createTaskButton = makeButton(" Create a Task");
         JButton viewScheduleButton = makeButton("View Schedule");
- 
+
         // x axis, y axis, width, height
         createTaskButton.setBounds(150, 200, 220, 50);
- 
+
         // adding button
         JPanel panel = new JPanel( );
         panel.setLayout(new BoxLayout(panel,  BoxLayout.Y_AXIS));
@@ -26,7 +26,7 @@ public class PSSGUI {
         panel.add(viewScheduleButton);
 
         frame.add(panel);
- 
+
         // 400 width and 500 height
         frame.setSize(500, 600);
 
@@ -45,7 +45,7 @@ public class PSSGUI {
     // create button method to ensure uniform buttons are created
     private static JButton makeButton(String text){
         JButton button = new JButton(text);
- 
+
         // x axis, y axis, width, height
         button.setBounds(150, 200, 220, 50);
 
