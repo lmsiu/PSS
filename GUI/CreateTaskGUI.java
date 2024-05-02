@@ -22,6 +22,7 @@ public class CreateTaskGUI {
         transientTaskButton.addActionListener(e -> {
             JFrame createTransientTaskFrame = new JFrame();
             createTransientTaskFrame.add(createTaskInfoGUIJPanel());
+            createTransientTaskFrame.setSize(500, 600);
             createTransientTaskFrame.setVisible(true);
             frame.setVisible(false);
             // TODO: ADD IN OTHER ELEMENTS FOR CREATING A TRANSIENT TASK
@@ -30,6 +31,7 @@ public class CreateTaskGUI {
         recurringTaskButton.addActionListener(e -> {
             JFrame createRecurringTaskFrame = new JFrame();
             createRecurringTaskFrame.add(createTaskInfoGUIJPanel());
+            createRecurringTaskFrame.setSize(500, 600);
             createRecurringTaskFrame.setVisible(true);
             frame.setVisible(false);
             // TODO: ADD IN OTHER ELEMENTS FOR CREATING A RECURRING TASK
@@ -39,6 +41,7 @@ public class CreateTaskGUI {
         antiTaskButton.addActionListener(e -> {
             JFrame createantiTaskFrame = new JFrame();
             createantiTaskFrame.add(createTaskInfoGUIJPanel());
+            createantiTaskFrame.setSize(500, 600);
             createantiTaskFrame.setVisible(true);
             frame.setVisible(false);
             // TODO: ADD IN OTHER ELEMENTS FOR CREATING AN ANTI TASK
