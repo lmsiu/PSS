@@ -24,6 +24,25 @@ public class CreateTaskGUI {
             createTransientTaskFrame.add(createTaskInfoGUIJPanel());
             createTransientTaskFrame.setVisible(true);
             frame.setVisible(false);
+            // TODO: ADD IN OTHER ELEMENTS FOR CREATING A TRANSIENT TASK
+        });
+
+        recurringTaskButton.addActionListener(e -> {
+            JFrame createRecurringTaskFrame = new JFrame();
+            createRecurringTaskFrame.add(createTaskInfoGUIJPanel());
+            createRecurringTaskFrame.setVisible(true);
+            frame.setVisible(false);
+            // TODO: ADD IN OTHER ELEMENTS FOR CREATING A RECURRING TASK
+
+        });
+
+        antiTaskButton.addActionListener(e -> {
+            JFrame createantiTaskFrame = new JFrame();
+            createantiTaskFrame.add(createTaskInfoGUIJPanel());
+            createantiTaskFrame.setVisible(true);
+            frame.setVisible(false);
+            // TODO: ADD IN OTHER ELEMENTS FOR CREATING AN ANTI TASK
+
         });
 
         JPanel panel = new JPanel( );
