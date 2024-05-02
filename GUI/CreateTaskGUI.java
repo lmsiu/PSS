@@ -1,65 +1,114 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
 package GUI;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 
 public class CreateTaskGUI {
+    public CreateTaskGUI() {
+    }
 
-    // return the JFrame for the create task screen
-    public JFrame getCreateTaskScreen(){
-        // Adjusting the JFrame
-        JFrame frame = new JFrame("PSS");
-        frame.setSize(700, 400);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLayout(new FlowLayout());
-        // Panel within the frame to hold the text and buttons
-        JPanel panel = new JPanel( );
-        panel.setPreferredSize(new java.awt.Dimension (550,300));
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
-        panel.setBackground(new Color(245, 245, 255));
-        // Creating the text and aligning it in a certain format
+    public JFrame getCreateTaskScreen() {
+        JFrame frame = new JFrame();
         JLabel createTaskText = new JLabel("What type of task would you like to create?");
-        createTaskText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        createTaskText.setPreferredSize(new Dimension(350, 100));
-        createTaskText.setFont(new Font("Dialog", Font.BOLD, 20));
-        createTaskText.setForeground(new Color(140,155, 255));
-        // Creating the buttons and aligning them
-        JButton transientTaskButton = makeButton("Transient Task");
-        JButton recurringTaskButton = makeButton("Recurring Task");
-        JButton antiTaskButton = makeButton("Anti Task");
-        transientTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        recurringTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        antiTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-
-        // Adding each component to the panel and the panel to the frame
-        panel.add(Box.createVerticalStrut(20));
+        JButton transientTaskButton = this.makeButton("Transient Task");
+        JButton recurringTaskButton = this.makeButton("Recurring Task");
+        JButton antiTaskButton = this.makeButton("Anti Task");
+        transientTaskButton.addActionListener((e) -> {
+            JFrame createTransientTaskFrame = new JFrame();
+            createTransientTaskFrame.add(this.createTaskInfoGUIJPanel());
+            createTransientTaskFrame.setVisible(true);
+            frame.setVisible(false);
+        });
+        recurringTaskButton.addActionListener((e) -> {
+            JFrame createRecurringTaskFrame = new JFrame();
+            createRecurringTaskFrame.add(this.createTaskInfoGUIJPanel());
+            createRecurringTaskFrame.setVisible(true);
+            frame.setVisible(false);
+        });
+        antiTaskButton.addActionListener((e) -> {
+            JFrame createantiTaskFrame = new JFrame();
+            createantiTaskFrame.add(this.createTaskInfoGUIJPanel());
+            createantiTaskFrame.setVisible(true);
+            frame.setVisible(false);
+        });
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, 1));
         panel.add(createTaskText);
-        panel.add(Box.createVerticalStrut(40));
         panel.add(transientTaskButton);
-        panel.add(Box.createVerticalStrut(20));
         panel.add(recurringTaskButton);
-        panel.add(Box.createVerticalStrut(20));
         panel.add(antiTaskButton);
-
         frame.add(panel);
-
-
-
-
+        frame.setSize(500, 600);
         return frame;
-
     }
-    // create button method to ensure uniform buttons are created
-    private JButton makeButton(String text){
+
+    private JButton makeButton(String text) {
         JButton button = new JButton(text);
-
-        // x axis, y axis, width, height
         button.setBounds(150, 200, 220, 50);
-
         return button;
-
     }
 
+    public JPanel createTaskInfoGUIJPanel() {
+        JLabel createTaskText = new JLabel("Task name: ");
+        JTextArea taskNameTextArea = new JTextArea("Enter a task name");
+        JPanel namePanel = new JPanel();
+        namePanel.add(createTaskText);
+        namePanel.add(taskNameTextArea);
+        JLabel dateText = new JLabel("Task name: Year: ");
+        JTextArea dateYearTextArea = new JTextArea("Year");
+        JLabel dateMonthText = new JLabel(" Month: ");
+        JTextArea dateMonthTextArea = new JTextArea("Month");
+        JLabel dateDayText = new JLabel(" Day: ");
+        JTextArea dateDayTextArea = new JTextArea("Day");
+        JPanel datePanel = new JPanel();
+        datePanel.add(dateText);
+        datePanel.add(dateYearTextArea);
+        datePanel.add(dateMonthText);
+        datePanel.add(dateMonthTextArea);
+        datePanel.add(dateDayText);
+        datePanel.add(dateDayTextArea);
+        JLabel durationText = new JLabel("Duration: Hours: ");
+        JTextArea durationHour = new JTextArea("Hours: ");
+        JLabel durationMinuteText = new JLabel(" Minutes: ");
+        JTextArea durationMinArea = new JTextArea(" Minutes: ");
+        JPanel durationPanel = new JPanel();
+        durationPanel.add(durationText);
+        durationPanel.add(durationHour);
+        durationPanel.add(durationMinuteText);
+        durationPanel.add(durationMinArea);
+        JLabel startTimeText = new JLabel("Start time: Hour: ");
+        JTextArea startTimeHour = new JTextArea("Hour: ");
+        JLabel startTimeMinuteText = new JLabel(" Minute: ");
+        JTextArea startTimeMinArea = new JTextArea(" Minutes: ");
+        ButtonGroup ampm = new ButtonGroup();
+        JRadioButton amButton = new JRadioButton("AM");
+        JRadioButton pmButton = new JRadioButton("PM");
+        ampm.add(amButton);
+        ampm.add(pmButton);
+        JPanel startTimePanel = new JPanel();
+        startTimePanel.add(startTimeText);
+        startTimePanel.add(startTimeHour);
+        startTimePanel.add(startTimeMinuteText);
+        startTimePanel.add(startTimeMinArea);
+        startTimePanel.add(amButton);
+        startTimePanel.add(pmButton);
+        JPanel generalInfoPanel = new JPanel();
+        generalInfoPanel.setLayout(new BoxLayout(generalInfoPanel, 1));
+        generalInfoPanel.add(namePanel);
+        generalInfoPanel.add(datePanel);
+        generalInfoPanel.add(durationPanel);
+        generalInfoPanel.add(startTimePanel);
+        return generalInfoPanel;
+    }
 }
