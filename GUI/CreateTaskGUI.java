@@ -1,10 +1,6 @@
 package GUI;
 
-import java.util.Collection;
-
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
 
 public class CreateTaskGUI {
 
