@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class AntiTask extends Task {
-    
+    private Model model;
     public AntiTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
         super(name, typeCategory, startTime, duration, date);  
     }
