@@ -7,3 +7,16 @@
 /.classpath
 /.project
 /TaskNotCreatedEexcption.class
+/AntiTask.class
+/Appointment.class
+/Cancellation.class
+/Shopping.class
+/TransientTask$TypeCategory.class
+/TransientTask.class
+/Visit.class
+/Course.class
+/Exercise.class
+/Meal.class
+/RecurringTask.class
+/Sleep.class
+/Study.class
