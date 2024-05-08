@@ -33,19 +33,25 @@ public class CreateTaskGUI {
         JButton antiTaskButton = this.makeButton("Anti Task");
         transientTaskButton.addActionListener((e) -> {
             JFrame createTransientTaskFrame = new JFrame();
-            createTransientTaskFrame.add(this.createTaskInfoGUIJPanel());
+            JPanel transientTaskPanel = new JPanel();
+            transientTaskPanel.add(this.createTaskInfoGUIJPanel());
+            transientTaskPanel.add(new TransientTaskGUI().getTransientTaskGUI());
+            createTransientTaskFrame.add(transientTaskPanel);
+            createTransientTaskFrame.setSize(500, 600);
             createTransientTaskFrame.setVisible(true);
             frame.setVisible(false);
         });
         recurringTaskButton.addActionListener((e) -> {
             JFrame createRecurringTaskFrame = new JFrame();
             createRecurringTaskFrame.add(this.createTaskInfoGUIJPanel());
+            createRecurringTaskFrame.setSize(500, 600);
             createRecurringTaskFrame.setVisible(true);
             frame.setVisible(false);
         });
         antiTaskButton.addActionListener((e) -> {
             JFrame createantiTaskFrame = new JFrame();
             createantiTaskFrame.add(this.createTaskInfoGUIJPanel());
+            createantiTaskFrame.setSize(500, 600);
             createantiTaskFrame.setVisible(true);
             frame.setVisible(false);
         });
