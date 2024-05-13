@@ -43,7 +43,10 @@ public class CreateTaskGUI {
         });
         recurringTaskButton.addActionListener((e) -> {
             JFrame createRecurringTaskFrame = new JFrame();
-            createRecurringTaskFrame.add(this.createTaskInfoGUIJPanel());
+            JPanel recurringTaskPanel = new JPanel();
+            recurringTaskPanel.add(this.createTaskInfoGUIJPanel());
+            recurringTaskPanel.add(new RecurringTaskGUI().getRecurringTaskGUI());
+            createRecurringTaskFrame.add(recurringTaskPanel);
             createRecurringTaskFrame.setSize(500, 600);
             createRecurringTaskFrame.setVisible(true);
             frame.setVisible(false);
