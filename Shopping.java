@@ -1,7 +1,7 @@
 public class Shopping extends TransientTask {
-    private TypeCategory typeCategory;
+    private String typeCategory;
 
-    Shopping(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
+    Shopping(String name, String typeCategory, float startTime, float duration, int date) {
         super (name, typeCategory, startTime, duration, date);
        
     }

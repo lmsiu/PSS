@@ -80,21 +80,12 @@ public class Model {
         Task taskToDelete = findTask(name);
         if(taskToDelete == null) throw new Exception("Task to delete does not match names with any tasks in the schedule!");
         
-        switch(taskToDelete.getTypeCategory()) {
-        case RECURRING:
-        	//any antitasks associated with this recurring task are deleted
-        	//STUB
-        	break;
-        case TRANSIENT:
-        	taskList.remove(taskToDelete);
-        	break;
-        case ANTITASK:
-        	//if deleting antitask would leave a conflict between two recurring tasks
-        	//or between a recurring and a transient task:
-        	//do NOT delete task, and throw an error
-        	//STUB
-        	break;
-        }
+		if (taskToDelete instanceof TransientTask) {
+			taskList.remove(taskToDelete);
+		} else {
+			System.out.println("We cannot delete this task. Please check your task type again.");
+		}
+
     }
 
     /**
@@ -159,7 +150,7 @@ public class Model {
         	try {
 				createTask(new Task(
 					(String)jo.get("Name"),
-					(TypeCategory)jo.get("TypeCategory"),
+					(String)jo.get("TypeCategory"),
 					(float)jo.get("StartTime"),
 					(float)jo.get("Duration"),
 					(int)jo.get("Date")
@@ -176,25 +167,15 @@ public class Model {
     
     private boolean verifyTask(Task taskToVerify) {
 		for(Task task : taskList) {
-	    	switch(taskToVerify.getTypeCategory()) {
-	    	case RECURRING:
-	    		//Verify that every instance of taskToVerify does not overlap with any task
-	    		
-	    		break;
-	    	case TRANSIENT:
+	    	double endTimeToVerify = taskToVerify.getStartTime() + taskToVerify.getDuration();
 
-				if(task.getTypeCategory() == TypeCategory.RECURRING) {
-					//Verify that every instance of recurring task does not overlap with taskToVerify
-					
-				}
-	    		break;
-	    	case ANTITASK:
-	    		//Verify that taskToVerify does not overlap with any transient or antitasks.
-	    		//Verify that taskToVerify matches with an instance of a recurring task
-	    		break;
-			default:
-				break;
-	    	}
+			if (taskToVerify.getDate() == task.getDate() &&
+				((taskToVerify.getStartTime() >= task.getStartTime() && taskToVerify.getStartTime() < task.getEndTime()) ||
+				(endTimeToVerify > task.getStartTime() && endTimeToVerify <= task.getEndTime()) ||
+				(taskToVerify.getStartTime() <= task.getStartTime() && endTimeToVerify >= task.getEndTime()))) {
+				return false;
+        	}
+
 		}
     	return true;
     }

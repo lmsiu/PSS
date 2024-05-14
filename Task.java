@@ -1,29 +1,40 @@
+import java.util.Calendar;
+
 public class Task {
     private String name;
-    private TypeCategory typeCategory;
+    private String typeCategory;
     private double startTime;
     private double duration;
-    private int date;
+    private double endTime;
+    private int yyymmdd;
+    private int week;
+    private int day;
+    private int month;
+    private int year;
 
     Task(){
         //empty constructor 
     }
 
-    Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
+    Task(String name, String typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
         this.name = name;
         this.typeCategory = typeCategory;
+        this.day = dateDay;
+        this.month = dateMonth;
+        this.year = dateYear;
         setStartTime(startTimeHour, startTimeMinute, AM);
         setDuration(durationHour, durationMinutes);
         setDate(dateYear, dateMonth, dateDay);
+        setWeek(dateYear, dateMonth, dateDay);
         
     }
 
     // Constructor to pass in exact values however this should be removed later
-    Task(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
+    Task(String name, String typeCategory, float startTime, float duration, int date) {
         this.name = name;
         this.typeCategory = typeCategory;
         this.duration = duration;
-        this.date = date;
+        this.yyymmdd = date;
         this.startTime = startTime;
         
     }
@@ -37,12 +48,12 @@ public class Task {
         return name;
     }
 
-    public void setTypeCategory(TypeCategory typeCategory){
+    public void setTypeCategory(String typeCategory){
         this.typeCategory = typeCategory;
 
     }
 
-    public TypeCategory getTypeCategory(){
+    public String getTypeCategory(){
         return typeCategory;
     }
 
@@ -73,34 +84,69 @@ public class Task {
 
     
     public void setDuration(int durationHour, int durationMinute){
-        duration = durationHour + roundFifteen(durationMinute);
+        this.duration = durationHour + roundFifteen(durationMinute);
+        this.endTime = this.startTime + this.duration;
     }
 
     public double getDuration(){
         return duration;
     }
 
+    public void setEndTime(double endTime) {
+        this.endTime = endTime;
+    }
+
+    public double getEndTime() {
+        return endTime;
+    }
+
+    private void updateEndTime() {
+        this.endTime = this.startTime + this.duration;
+    }
+
     public void setDate(int year, int month, int day){
-        date = (year*10000) + (month*100) + day;
+        yyymmdd = (year*10000) + (month*100) + day;
     }
 
     public int getDate(){
-        return date;
+        return yyymmdd;
     }
 
+    public void setWeek(int dateYear, int dateMonth, int dateDay) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(dateYear, dateMonth - 1, dateDay);
+        week = calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+    
+    public int getWeek() {
+        return week;
+    }
+
+    public void setMonth(int dateMonth) {
+        this.month = dateMonth;
+    }
+    
+    public int getMonth() {
+        return month;
+    }
     private double roundFifteen(int value){
         return Math.ceil((value/60.0)*4)/4;
 
     }
 
+    // How to print this Task class
+    @Override
+    public String toString() {
+        return "Task: " + name + "\n" +
+               "Type Category: " + typeCategory + "\n" +
+               "Start Time: " + startTime + "\n" +
+               "Duration: " + duration + "\n" +
+               "Date: " + year + "-" + month + "-" + day;
+    }
+    
     
 }
 
-enum TypeCategory{
-    RECURRING,
-    TRANSIENT,
-    ANTITASK,
-}
 
 // exception for if the task is not initalized
 class TaskNotCreatedEexcption extends Exception{

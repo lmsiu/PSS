@@ -1,7 +1,7 @@
 public class Appointment extends TransientTask {
-    private TypeCategory typeCategory;
+    private String typeCategory;
 
-    Appointment(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
+    Appointment(String name, String typeCategory, float startTime, float duration, int date) {
         super (name, typeCategory, startTime, duration, date);
        
     }
