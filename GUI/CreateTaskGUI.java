@@ -5,6 +5,7 @@
 
 package GUI;
 
+import javax.swing.*;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
+
 public class CreateTaskGUI {
     public CreateTaskGUI() {
     }
@@ -21,28 +23,41 @@ public class CreateTaskGUI {
     public JFrame getCreateTaskScreen() {
         JFrame frame = new JFrame();
         JLabel createTaskText = new JLabel("What type of task would you like to create?");
+
+        // buttons
+        JPanel panel = new JPanel( );
+        panel.setLayout(new BoxLayout(panel,  BoxLayout.Y_AXIS));
+
         JButton transientTaskButton = this.makeButton("Transient Task");
         JButton recurringTaskButton = this.makeButton("Recurring Task");
         JButton antiTaskButton = this.makeButton("Anti Task");
         transientTaskButton.addActionListener((e) -> {
             JFrame createTransientTaskFrame = new JFrame();
-            createTransientTaskFrame.add(this.createTaskInfoGUIJPanel());
+            JPanel transientTaskPanel = new JPanel();
+            transientTaskPanel.add(this.createTaskInfoGUIJPanel());
+            transientTaskPanel.add(new TransientTaskGUI().getTransientTaskGUI());
+            createTransientTaskFrame.add(transientTaskPanel);
+            createTransientTaskFrame.setSize(500, 600);
             createTransientTaskFrame.setVisible(true);
             frame.setVisible(false);
         });
         recurringTaskButton.addActionListener((e) -> {
             JFrame createRecurringTaskFrame = new JFrame();
-            createRecurringTaskFrame.add(this.createTaskInfoGUIJPanel());
+            JPanel recurringTaskPanel = new JPanel();
+            recurringTaskPanel.add(this.createTaskInfoGUIJPanel());
+            recurringTaskPanel.add(new RecurringTaskGUI().getRecurringTaskGUI());
+            createRecurringTaskFrame.add(recurringTaskPanel);
+            createRecurringTaskFrame.setSize(500, 600);
             createRecurringTaskFrame.setVisible(true);
             frame.setVisible(false);
         });
         antiTaskButton.addActionListener((e) -> {
             JFrame createantiTaskFrame = new JFrame();
             createantiTaskFrame.add(this.createTaskInfoGUIJPanel());
+            createantiTaskFrame.setSize(500, 600);
             createantiTaskFrame.setVisible(true);
             frame.setVisible(false);
         });
-        JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, 1));
         panel.add(createTaskText);
         panel.add(transientTaskButton);
@@ -59,12 +74,17 @@ public class CreateTaskGUI {
         return button;
     }
 
+
+    // returns gui for basic values needed for a general task
     public JPanel createTaskInfoGUIJPanel() {
+    	// Name
         JLabel createTaskText = new JLabel("Task name: ");
         JTextArea taskNameTextArea = new JTextArea("Enter a task name");
         JPanel namePanel = new JPanel();
         namePanel.add(createTaskText);
         namePanel.add(taskNameTextArea);
+
+        //  date
         JLabel dateText = new JLabel("Task name: Year: ");
         JTextArea dateYearTextArea = new JTextArea("Year");
         JLabel dateMonthText = new JLabel(" Month: ");
@@ -78,6 +98,8 @@ public class CreateTaskGUI {
         datePanel.add(dateMonthTextArea);
         datePanel.add(dateDayText);
         datePanel.add(dateDayTextArea);
+        
+        // duration
         JLabel durationText = new JLabel("Duration: Hours: ");
         JTextArea durationHour = new JTextArea("Hours: ");
         JLabel durationMinuteText = new JLabel(" Minutes: ");
@@ -87,15 +109,21 @@ public class CreateTaskGUI {
         durationPanel.add(durationHour);
         durationPanel.add(durationMinuteText);
         durationPanel.add(durationMinArea);
+        
+        // start time
         JLabel startTimeText = new JLabel("Start time: Hour: ");
         JTextArea startTimeHour = new JTextArea("Hour: ");
         JLabel startTimeMinuteText = new JLabel(" Minute: ");
         JTextArea startTimeMinArea = new JTextArea(" Minutes: ");
+
+        // am or pm radion buttons
         ButtonGroup ampm = new ButtonGroup();
         JRadioButton amButton = new JRadioButton("AM");
         JRadioButton pmButton = new JRadioButton("PM");
+        // adding to the button group to ensure that only one button at a time can be selected. 
         ampm.add(amButton);
         ampm.add(pmButton);
+
         JPanel startTimePanel = new JPanel();
         startTimePanel.add(startTimeText);
         startTimePanel.add(startTimeHour);
@@ -103,12 +131,15 @@ public class CreateTaskGUI {
         startTimePanel.add(startTimeMinArea);
         startTimePanel.add(amButton);
         startTimePanel.add(pmButton);
+
+        // panel for everything
         JPanel generalInfoPanel = new JPanel();
-        generalInfoPanel.setLayout(new BoxLayout(generalInfoPanel, 1));
+        generalInfoPanel.setLayout(new BoxLayout(generalInfoPanel,  BoxLayout.Y_AXIS));
         generalInfoPanel.add(namePanel);
         generalInfoPanel.add(datePanel);
         generalInfoPanel.add(durationPanel);
         generalInfoPanel.add(startTimePanel);
+
         return generalInfoPanel;
     }
 }
