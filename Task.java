@@ -92,6 +92,8 @@ public class Task {
         return Math.ceil((value/60.0)*4)/4;
 
     }
+
+    
 }
 
 enum TypeCategory{
