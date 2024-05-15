@@ -7,7 +7,7 @@ import Tasks.Task;
 
 public class AntiTask extends Task {
     private Model model;
-    public AntiTask(String name, float startTime, float duration, int date) {
+    public AntiTask(String name, double startTime, double duration, int date) {
         super(name, startTime, duration, date);  
     }
 

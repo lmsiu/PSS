@@ -17,7 +17,8 @@ public class Task {
         
     }
 
-    // Constructor to pass in exact values however this should be removed later
+    // Keep this constructor
+    // Used when we know parameters have been validated already Ex: reading from data from a file
     Task(String name, double startTime, double duration, int date) {
         this.name = name;
         this.duration = duration;
@@ -70,8 +71,11 @@ public class Task {
         return duration;
     }
 
-    public void setDate(int year, int month, int day){
+    public void setDate(int year, int month, int day) throws Exception{
         date = (year*10000) + (month*100) + day;
+        if(!isValidDate(date)) {
+        	throw new Exception("Date is not valid");
+        }
     }
 
     public int getDate(){
@@ -81,6 +85,33 @@ public class Task {
     private double roundFifteen(int value){
         return Math.ceil((value/60.0)*4)/4;
 
+    }
+    
+    // Method to ensure that the inputted integer for date has a valid year, month, and day within the month.
+    protected boolean isValidDate(int date) {
+        int year = date / 10000;
+        int month = (date % 10000) / 100;
+        int day = date % 100;
+
+        if (month < 1 || month > 12) {
+            return false;
+        }
+
+        int[] daysInMonth = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (isLeapYear(year)) {
+            daysInMonth[1] = 29;
+        }
+
+        if (day < 1 || day > daysInMonth[month - 1]) {
+            return false;
+        }
+
+        return true;
+    }
+    
+    // Checks to see if the year within date is a leap year
+    private boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 }
 

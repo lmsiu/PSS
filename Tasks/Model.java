@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import Tasks.RecurringTask.TaskType;
 import Tasks.TransientTask.TypeCategory;
 
 public class Model {
@@ -117,18 +118,16 @@ public class Model {
         		jo.put("StartTime", task.getStartTime());
         		jo.put("Duration", task.getDuration());
         		
-        		switch(task.getClass().toString()) {
-        		case "RECURRING":
-        			//jo.put("Frequency", task.getFrequency());
-        			//jo.put("StartDate", task.getStartDate());
-        			//jo.put("EndDate", task.getEndDate())
-        			break;
-        		case "TRANSIENT":
-        			//STUB
-        			break;
-        		case "ANTITASK":
-        			//STUB
-        			break;
+        		if(task instanceof RecurringTask) {
+        			jo.put("Task", "Recurring");
+        			jo.put("TypeCategory", ((RecurringTask)task).getTaskType());
+        			jo.put("Frequency", ((RecurringTask)task).getFrequency());
+        			jo.put("EndDate", ((RecurringTask)task).getEndDate());
+        		} else if (task instanceof TransientTask) {
+        			jo.put("Task", "Transient");
+        			jo.put("TypeCategory", ((TransientTask)task).getTaskType());
+        		} else if (task instanceof AntiTask) {
+        			jo.put("Task", "Anti");
         		}
         		
         		JSONArray ja = new JSONArray();
@@ -161,6 +160,17 @@ public class Model {
         	JSONObject jo = (JSONObject) o;
         	try {
         		switch((String)jo.get("TypeCategory")) {
+        		case "Recurring":
+        			createTask(new RecurringTask(
+        					(String)jo.get("Name"),
+        					(TaskType)jo.get("TypeCategory"),
+        					(double)jo.get("StartTime"),
+        					(double)jo.get("Duration"),
+        					(int)jo.get("Date"),
+        					(int)jo.get("EndDate"),
+        					(int)jo.get("Frequency")
+        				));
+        			break;
         		case "Transient":
         			createTask(new TransientTask(
         					(String)jo.get("Name"),
@@ -170,9 +180,13 @@ public class Model {
         					(int)jo.get("Date")
         				));
         			break;
-        		case "Recurring":
-        			break;
         		case "AntiTask":
+        			createTask(new AntiTask(
+        					(String)jo.get("Name"),
+        					(double)jo.get("StartTime"),
+        					(double)jo.get("Duration"),
+        					(int)jo.get("Date")
+        				));
         			break;
         		}
 			} catch (Exception e) {
