@@ -8,86 +8,49 @@ public class Controller {
     }
 
     // Transient Task
-    public Exception createTransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TransientTask.TypeCategory typeCategory){
+    public void createTransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TransientTask.TypeCategory typeCategory) throws Exception{
 
         // returns the exception so it can be printed to the screen if something goes wrong
-        try {
             TransientTask newTask = new TransientTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
             model.createTask(newTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e;
-        }
-        return null;
+
     }
 
 
     // Recurring Task
-    public Exception createRecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, RecurringTask.TaskType taskType){
-
-        try {
+    public void createRecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, RecurringTask.TaskType taskType) throws Exception{
             RecurringTask newTask = new RecurringTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, startDate, endDate, frequency, taskType);
             model.createTask(newTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e;
-        }
-
-        return null;
     }
 
     // Anti Task
-    public Exception createAntiTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay){
+    public void createAntiTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) throws Exception{
 
         // returns the exception so it can be printed to the screen if something goes wrong
-        try {
             AntiTask newTask = new AntiTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
             model.createTask(newTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e;
-        }
-        return null;
     }
 
 
     // Delete Task
-    public boolean deleteTask(String taskName){
-        try {
+    public void deleteTask(String taskName) throws Exception{
             model.deleteTask(taskName);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-
     }
 
     // Edit tasks
     //Recurring
-    public Exception editRecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, RecurringTask.TaskType taskType){
+    public void editRecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, RecurringTask.TaskType taskType) throws Exception{
         RecurringTask newTask = new RecurringTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, startDate, endDate, frequency, taskType);
-        try {
+
             model.editTask(newTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e;
-        }
-        return null;
     }
 
     // Transient Task
-    public Exception editTransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TransientTask.TypeCategory typeCategory){
+    public void editTransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TransientTask.TypeCategory typeCategory) throws Exception{
 
-        // returns the exception so it can be printed to the screen if something goes wrong
-        try {
             TransientTask newTask = new TransientTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
             model.editTask(newTask);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return e;
-        }
-        return null;
+
     }
     
 

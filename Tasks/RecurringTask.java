@@ -13,7 +13,7 @@ public class RecurringTask extends Task{
         this.frequency = frequency;
     }
 
-    RecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, TaskType taskType){
+    RecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, TaskType taskType) throws Exception{
         super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
         this.endDate = endDate;
         this.frequency = frequency;

@@ -57,14 +57,12 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
             public void actionPerformed(ActionEvent e){
                 if (e.getSource() == createButton){
                     // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
-                    Exception taskCreated = createTransientTask();
-                    if(taskCreated != null){
-                        // only not null if something went wrong
-                        JOptionPane.showMessageDialog(null, taskCreated.getMessage());
-                    }else{
+                    try {
+                        createTransientTask();
                         JOptionPane.showMessageDialog(null, "Info Saved");
-                    };
-
+                    } catch (Exception e1) {
+                        JOptionPane.showMessageDialog(null, e1.getMessage());
+                    }
                 }
             }
         });
@@ -90,7 +88,7 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
         return button;
     }
 
-    private Exception createTransientTask(){
+    private void createTransientTask() throws Exception{
 
         // general info 
         String name = taskNameTextArea.getText();
@@ -120,7 +118,7 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
                 break;
         }
 
-        return controller.createTransientTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
+        controller.createTransientTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
 
     }
     
