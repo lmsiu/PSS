@@ -1,5 +1,4 @@
-import GUI.TransientTask;
-
+package Tasks;
 public class Controller {
     private Model model;
 

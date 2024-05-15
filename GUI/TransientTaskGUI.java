@@ -5,10 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Tasks.TransientTask;
+import Tasks.Controller;
 
 public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
-    
+
     private ButtonGroup transientTaskButtonsButtonGroup = new ButtonGroup();
+
+    public TransientTaskGUI(Controller controller){
+        
+        
+    }
 
     public JPanel getTransientTaskGUI(){
         JLabel taskTypeTLabel = new JLabel("Task Type: ");

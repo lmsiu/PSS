@@ -1,5 +1,9 @@
+package Tasks;
+
 import java.util.LinkedList;
 import java.util.List;
+
+import Tasks.Task;
 
 public class AntiTask extends Task {
     private Model model;
