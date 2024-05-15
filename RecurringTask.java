@@ -11,10 +11,11 @@ public class RecurringTask extends Task{
 
     // Constructor for RecurringTask
     RecurringTask(String taskName,TaskType typeCat, double startTime, double duration, String type, int startDate, int endDate, int frequency) {
-        this.name = taskName;
+        super(taskName, startTime, duration, startDate);
+        //this.name = taskName;
         this.typeCategory = typeCat;
-        this.startTime = startTime;
-        this.duration = duration;
+        // this.startTime = startTime;
+        // this.duration = duration;
         //this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;

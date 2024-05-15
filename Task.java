@@ -17,7 +17,7 @@ public class Task {
     }
 
     // Constructor to pass in exact values however this should be removed later
-    Task(String name, float startTime, float duration, int date) {
+    Task(String name, double startTime, double duration, int date) {
         this.name = name;
         this.duration = duration;
         this.date = date;
