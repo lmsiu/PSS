@@ -16,6 +16,11 @@ public class TransientTask extends Task {
         this.date = date;
     }
 
+    TransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TypeCategory typeCategory){
+        super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
+        this.typeCategory = typeCategory;
+    }
+
     // Set the Transient Task type (Appointment, Shopping, and Visit)
     public void setTaskType(TypeCategory transientTaskType) {
         if (transientTaskType != TypeCategory.APPOINTMENT &&
@@ -23,7 +28,7 @@ public class TransientTask extends Task {
             transientTaskType != TypeCategory.VISIT) {
             throw new IllegalArgumentException("Invalid task type. Must be one of: APPOINTMENT, SHOPPING, VISIT");
         }
-        this.transientTaskType = transientTaskType;
+        this.typeCategory = transientTaskType;
     }
 
     // Get the Transient Task type

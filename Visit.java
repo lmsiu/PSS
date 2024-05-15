@@ -5,4 +5,8 @@ public class Visit extends TransientTask {
         super (name, typeCategory, startTime, duration, date);
        
     }
+
+    Visit(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TransientTask.TypeCategory typeCategory){
+        super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
+    }
 }
