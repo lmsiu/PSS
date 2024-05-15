@@ -25,14 +25,14 @@ public class CreateTaskInfoGeneralGUI {
 
     // Duration
     private JLabel durationText = new JLabel("Duration: Hours: ");
-    public JTextArea durationHour = new JTextArea("Hours: ");
+    public JTextArea durationHourArea = new JTextArea("Hours: ");
         private JLabel durationMinuteText = new JLabel(" Minutes: ");
         public JTextArea durationMinArea = new JTextArea(" Minutes: ");
         private JPanel durationPanel = new JPanel();
 
     // start time
     private JLabel startTimeText = new JLabel("Start time: Hour: ");
-    public JTextArea startTimeHour = new JTextArea("Hour: ");
+    public JTextArea startTimeHourTextArea = new JTextArea("Hour: ");
     private JLabel startTimeMinuteText = new JLabel(" Minute: ");
     public JTextArea startTimeMinArea = new JTextArea(" Minutes: ");
 
@@ -71,7 +71,7 @@ public class CreateTaskInfoGeneralGUI {
         // duration
         
         durationPanel.add(durationText);
-        durationPanel.add(durationHour);
+        durationPanel.add(durationHourArea);
         durationPanel.add(durationMinuteText);
         durationPanel.add(durationMinArea);
 
@@ -85,7 +85,7 @@ public class CreateTaskInfoGeneralGUI {
         // start time
         JPanel startTimePanel = new JPanel();
         startTimePanel.add(startTimeText);
-        startTimePanel.add(startTimeHour);
+        startTimePanel.add(startTimeHourTextArea);
         startTimePanel.add(startTimeMinuteText);
         startTimePanel.add(startTimeMinArea);
         startTimePanel.add(amButton);

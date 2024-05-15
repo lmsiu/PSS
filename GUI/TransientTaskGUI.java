@@ -4,12 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Tasks.TransientTask;
 
 public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
+    
+    private ButtonGroup transientTaskButtonsButtonGroup = new ButtonGroup();
+
     public JPanel getTransientTaskGUI(){
         JLabel taskTypeTLabel = new JLabel("Task Type: ");
 
-        ButtonGroup transientTaskButtonsButtonGroup = new ButtonGroup();
         JRadioButton appointmentButton = new JRadioButton("Appointment");
         JRadioButton shoppingButton = new JRadioButton("Shopping");
         JRadioButton visitButton = new JRadioButton("Visit");
@@ -48,7 +51,7 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
             public void actionPerformed(ActionEvent e){
                 if (e.getSource() == createButton){
                     // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
-
+                    createTransientTask();
                     //createTaskPanel.getComponent(dateDayTextArea)
                     JOptionPane.showMessageDialog(null, "Info Saved");
                 }
@@ -74,6 +77,39 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
         JButton button = new JButton(text);
         button.setBounds(150, 200, 220, 50);
         return button;
+    }
+
+    private Exception createTransientTask(){
+
+        // general info 
+        String name = taskNameTextArea.getText();
+        int startTimeMinute = Integer.parseInt(startTimeMinArea.getText());
+        int startTimeHour = Integer.parseInt(startTimeHourTextArea.getText());
+        int durationHour = Integer.parseInt(durationHourArea.getText());
+        int durationMinutes = Integer.parseInt(durationMinArea.getText());
+        int dateYear = Integer.parseInt(dateYearTextArea.getText());
+        int dateMonth = Integer.parseInt(dateMonthTextArea.getText());
+        int dateDay = Integer.parseInt(dateDayTextArea.getText());
+        boolean am = ampm.getSelection().toString().equals("AM");
+
+        // transient task
+        TransientTask.TypeCategory typeCategory;
+        switch (transientTaskButtonsButtonGroup.getSelection().toString()) {
+            case("Appointment"):
+                typeCategory = TransientTask.TypeCategory.APPOINTMENT;
+                break;
+            case("Shopping"):
+                typeCategory = TransientTask.TypeCategory.SHOPPING;
+                break;
+            case("Visit"):
+                typeCategory = TransientTask.TypeCategory.VISIT;
+                break;
+            default:
+                break;
+        }
+
+
+        return null;
     }
     
 }
