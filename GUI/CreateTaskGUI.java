@@ -13,13 +13,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+
+import Tasks.Controller;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 public class CreateTaskGUI {
+    public Controller controller;
+
+
     public CreateTaskGUI() {
+    }
+
+    public CreateTaskGUI(Controller controller) {
+        this.controller = controller;
     }
     // Panel that prompts for task selection
     public JPanel getCreateTaskScreen() {
@@ -76,7 +86,7 @@ public class CreateTaskGUI {
             JPanel transientTaskPanel = new JPanel();
             transientTaskPanel.setBackground(new Color(245, 245, 255));
             transientTaskPanel.add(transientText);
-            transientTaskPanel.add(new TransientTaskGUI().getTransientTaskGUI());
+            transientTaskPanel.add(new TransientTaskGUI(controller).getTransientTaskGUI());
             transientTaskPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
 
             topPanel.add(transientTaskPanel,"3");

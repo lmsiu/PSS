@@ -10,10 +10,10 @@ import Tasks.Controller;
 public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
 
     private ButtonGroup transientTaskButtonsButtonGroup = new ButtonGroup();
+    private Controller controller;
 
     public TransientTaskGUI(Controller controller){
-        
-        
+        this.controller = controller;
     }
 
     public JPanel getTransientTaskGUI(){
@@ -57,9 +57,14 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
             public void actionPerformed(ActionEvent e){
                 if (e.getSource() == createButton){
                     // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
-                    createTransientTask();
-                    //createTaskPanel.getComponent(dateDayTextArea)
-                    JOptionPane.showMessageDialog(null, "Info Saved");
+                    Exception taskCreated = createTransientTask();
+                    if(taskCreated != null){
+                        // only not null if something went wrong
+                        JOptionPane.showMessageDialog(null, taskCreated.getMessage());
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Info Saved");
+                    };
+
                 }
             }
         });
@@ -111,11 +116,12 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
                 typeCategory = TransientTask.TypeCategory.VISIT;
                 break;
             default:
+                typeCategory = null;
                 break;
         }
 
+        return controller.createTransientTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
 
-        return null;
     }
     
 }
