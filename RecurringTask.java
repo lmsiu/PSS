@@ -1,9 +1,9 @@
 import java.util.*;
 public class RecurringTask extends Task{
-    private String name;
+    //private String name;
     private TaskType typeCategory;
-    private double startTime;
-    private double duration;
+    // private double startTime;
+    // private double duration;
     //private String type;
     private int startDate;
     private int endDate;
