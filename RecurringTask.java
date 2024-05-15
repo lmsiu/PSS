@@ -21,6 +21,14 @@ public class RecurringTask extends Task{
         this.frequency = frequency;
     }
 
+    RecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, String type, int startDate, int endDate, int frequency, String typeString){
+        super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.frequency = frequency;
+        this.type = type;
+    }
+
     // Sets the type for the recurring task. The given string has to match (Case Sensitive) one of the given values
     public void setTaskType(String taskType){
         this.type = taskType;
