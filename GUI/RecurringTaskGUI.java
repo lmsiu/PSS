@@ -100,12 +100,11 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
                                    
                                 try {
                                         createRecurringTask();
+                                        JOptionPane.showMessageDialog(null, "Info Saved");
                                 } catch (Exception e1) {
                                         JOptionPane.showMessageDialog(null, e1.getMessage());
 
                                 }
-                                
-                                        JOptionPane.showMessageDialog(null, "Info Saved");
 
                 
                             }
@@ -134,7 +133,7 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
                 return button;
         }
 
-        private Exception createRecurringTask() throws Exception{
+private void createRecurringTask() throws Exception{
                 // general info 
         String name = taskNameTextArea.getText();
         int startTimeMinute = Integer.parseInt(startTimeMinArea.getText().trim());
@@ -179,9 +178,6 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
                 frequency = 7;
         }
 
-        return controller.createRecurringTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, dateMonth, dateDay, frequency, typeCategory);
-
-
-        
+        controller.createRecurringTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, dateMonth, dateDay, frequency, typeCategory);
         }
 }

@@ -37,7 +37,7 @@ public class Task {
     }
 
 
-    public void setStartTime(int hour, int minute, boolean AM){
+    public void setStartTime(int hour, int minute, boolean AM) throws Exception{
         //boolean AM true if AM and false if PM
         double startTimeHour = AM ? hour : hour + 12;
 
@@ -47,14 +47,11 @@ public class Task {
         startTime = startTimeHour + startTimeMinute;
         
         // try catch for if it dosent work
-        try {
+   
             if(startTime <= 0 || startTime >= 23.75){
                 // throws an error if the time is too big
                 throw new TaskNotCreatedEexcption("Invalid start time");
             }
-        } catch (TaskNotCreatedEexcption e) {
-           System.out.println(e.getMessage());
-        }
         
     }
 
