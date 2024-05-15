@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RecurringTaskGUI {
+public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
 	public JPanel getRecurringTaskGUI() {
 		// Frequency
 		JLabel frequencyLabel = new JLabel("Frequency: ");
@@ -76,6 +76,7 @@ public class RecurringTaskGUI {
             frequencyPanel.setOpaque(false);
         buttonsPanel.setOpaque(false);
         recurringTaskPanel.setLayout(new BoxLayout(recurringTaskPanel,  BoxLayout.Y_AXIS));
+        recurringTaskPanel.add(this.createTaskInfoGUIJPanel());
         recurringTaskPanel.add(taskTypePanel);
         recurringTaskPanel.add(frequencyPanel);
         recurringTaskPanel.add(buttonsPanel);

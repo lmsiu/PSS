@@ -1,3 +1,5 @@
+package Tasks;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,6 +82,7 @@ public class Model {
         Task taskToDelete = findTask(name);
         if(taskToDelete == null) throw new Exception("Task to delete does not match names with any tasks in the schedule!");
         
+		/*
         switch(taskToDelete.getTypeCategory()) {
         case RECURRING:
         	//any antitasks associated with this recurring task are deleted
@@ -95,6 +98,20 @@ public class Model {
         	//STUB
         	break;
         }
+		*/
+		if(taskToDelete instanceof RecurringTask){
+			//any antitasks associated with this recurring task are deleted
+        	//STUB
+		}else if(taskToDelete instanceof TransientTask){
+			taskList.remove(taskToDelete);
+
+		}else if(taskToDelete instanceof AntiTask){
+			//if deleting antitask would leave a conflict between two recurring tasks
+        	//or between a recurring and a transient task:
+        	//do NOT delete task, and throw an error
+        	//STUB
+
+		}
     }
 
     /**

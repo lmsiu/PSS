@@ -1,6 +1,6 @@
+package Tasks;
 public class Task {
     private String name;
-    private TypeCategory typeCategory;
     private double startTime;
     private double duration;
     private int date;
@@ -9,9 +9,8 @@ public class Task {
         //empty constructor 
     }
 
-    Task(String name, TypeCategory typeCategory, int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
+    Task(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
         this.name = name;
-        this.typeCategory = typeCategory;
         setStartTime(startTimeHour, startTimeMinute, AM);
         setDuration(durationHour, durationMinutes);
         setDate(dateYear, dateMonth, dateDay);
@@ -19,9 +18,8 @@ public class Task {
     }
 
     // Constructor to pass in exact values however this should be removed later
-    Task(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
+    Task(String name, double startTime, double duration, int date) {
         this.name = name;
-        this.typeCategory = typeCategory;
         this.duration = duration;
         this.date = date;
         this.startTime = startTime;
@@ -37,14 +35,6 @@ public class Task {
         return name;
     }
 
-    public void setTypeCategory(TypeCategory typeCategory){
-        this.typeCategory = typeCategory;
-
-    }
-
-    public TypeCategory getTypeCategory(){
-        return typeCategory;
-    }
 
     public void setStartTime(int hour, int minute, boolean AM){
         //boolean AM true if AM and false if PM
@@ -92,12 +82,6 @@ public class Task {
         return Math.ceil((value/60.0)*4)/4;
 
     }
-}
-
-enum TypeCategory{
-    RECURRING,
-    TRANSIENT,
-    ANTITASK,
 }
 
 // exception for if the task is not initalized

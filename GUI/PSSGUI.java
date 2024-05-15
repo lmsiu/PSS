@@ -6,9 +6,16 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.*;
 
+import Tasks.Controller;
+import Tasks.Model;
+
 
 public class PSSGUI{
+    // controller that will control everything
+
     public static void main(String args[]){
+        Controller controller = new Controller(new Model());
+
         // Creating instance of JFrame
         JFrame frame = new JFrame("PSS");
         frame.setSize(800, 800);
@@ -111,7 +118,7 @@ public class PSSGUI{
         createTaskButton.addActionListener(e ->
         {
             CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
-            CreateTaskGUI createTaskGUI = new CreateTaskGUI();
+            CreateTaskGUI createTaskGUI = new CreateTaskGUI(controller);
             JPanel createTaskPanel = createTaskGUI.getCreateTaskScreen();
             panelHolder.add(createTaskPanel, "2");
             cardLayout.show(panelHolder, "2");

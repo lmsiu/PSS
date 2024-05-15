@@ -1,10 +1,18 @@
+package Tasks;
+
 import java.util.LinkedList;
 import java.util.List;
 
+import Tasks.Task;
+
 public class AntiTask extends Task {
     private Model model;
-    public AntiTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
-        super(name, typeCategory, startTime, duration, date);  
+    public AntiTask(String name, float startTime, float duration, int date) {
+        super(name, startTime, duration, date);  
+    }
+
+    public AntiTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay){
+        super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
     }
 
     /**
@@ -25,7 +33,7 @@ public class AntiTask extends Task {
 
     // Method to check if a task is an anti-task
     private boolean isAntiTask(Task task) {
-        return task.getTypeCategory() == TypeCategory.ANTITASK && task instanceof AntiTask;
+        return task instanceof AntiTask;
     }
 
     /**
@@ -35,7 +43,7 @@ public class AntiTask extends Task {
      * @return true if the recurring task has been canceled by an anti-task, false otherwise
      */
     private boolean hasCorrespondingAntiTask(Task task) {
-        if (task.getTypeCategory() == TypeCategory.RECURRING && task instanceof RecurringTask) {
+        if (task instanceof RecurringTask) {
             RecurringTask recurringTask = (RecurringTask) task;
             for (Task antiTask : model.returnTaskList()) {
                 if (isAntiTask(antiTask) && correspondsToAntiTask(recurringTask, antiTask)) {
