@@ -62,7 +62,8 @@ public class Controller {
 
     }
 
-    // Edit task
+    // Edit tasks
+    //Recurring
     public Exception editRecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, RecurringTask.TaskType taskType){
         RecurringTask newTask = new RecurringTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, startDate, endDate, frequency, taskType);
         try {
@@ -73,6 +74,21 @@ public class Controller {
         }
         return null;
     }
+
+    // Transient Task
+    public Exception editTransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TransientTask.TypeCategory typeCategory){
+
+        // returns the exception so it can be printed to the screen if something goes wrong
+        try {
+            TransientTask newTask = new TransientTask(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
+            model.editTask(newTask);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e;
+        }
+        return null;
+    }
+    
 
     // Search for a task
     public Task searchTask(String taskName){
