@@ -3,8 +3,8 @@ import java.util.List;
 
 public class AntiTask extends Task {
     private Model model;
-    public AntiTask(String name, TypeCategory typeCategory, float startTime, float duration, int date) {
-        super(name, typeCategory, startTime, duration, date);  
+    public AntiTask(String name, float startTime, float duration, int date) {
+        super(name, startTime, duration, date);  
     }
 
     /**
@@ -25,7 +25,7 @@ public class AntiTask extends Task {
 
     // Method to check if a task is an anti-task
     private boolean isAntiTask(Task task) {
-        return task.getTypeCategory() == TypeCategory.ANTITASK && task instanceof AntiTask;
+        return task instanceof AntiTask;
     }
 
     /**
@@ -35,7 +35,7 @@ public class AntiTask extends Task {
      * @return true if the recurring task has been canceled by an anti-task, false otherwise
      */
     private boolean hasCorrespondingAntiTask(Task task) {
-        if (task.getTypeCategory() == TypeCategory.RECURRING && task instanceof RecurringTask) {
+        if (task instanceof RecurringTask) {
             RecurringTask recurringTask = (RecurringTask) task;
             for (Task antiTask : model.returnTaskList()) {
                 if (isAntiTask(antiTask) && correspondsToAntiTask(recurringTask, antiTask)) {
