@@ -1,34 +1,35 @@
 import java.util.*;
 public class RecurringTask extends Task{
     private String name;
-    private String typeCategory;
+    private TaskType typeCategory;
     private double startTime;
     private double duration;
-    private String type;
+    //private String type;
     private int startDate;
     private int endDate;
     private int frequency;
 
     // Constructor for RecurringTask
-    RecurringTask(String taskName,String typeCat, double startTime, double duration, String type, int startDate, int endDate, int frequency) {
+    RecurringTask(String taskName,TaskType typeCat, double startTime, double duration, String type, int startDate, int endDate, int frequency) {
         this.name = taskName;
         this.typeCategory = typeCat;
         this.startTime = startTime;
         this.duration = duration;
-        this.type = type;
+        //this.type = type;
         this.startDate = startDate;
         this.endDate = endDate;
         this.frequency = frequency;
     }
 
-    RecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, String type, int startDate, int endDate, int frequency, String typeString){
+    RecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, TaskType taskType){
         super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
         this.startDate = startDate;
         this.endDate = endDate;
         this.frequency = frequency;
-        this.type = type;
+        this.typeCategory = taskType;
     }
 
+    /* 
     // Sets the type for the recurring task. The given string has to match (Case Sensitive) one of the given values
     public void setTaskType(String taskType){
         this.type = taskType;
@@ -42,10 +43,22 @@ public class RecurringTask extends Task{
             throw new IllegalArgumentException("Invalid task type. Must be one of: " + validTaskTypes);
         }
     }
+*/
 
-    // Returns the string value for the recurring tasks type
+
+    /*    // Returns the string value for the recurring tasks type
     public String getTaskType(){
         return type;
+    }
+    */
+
+    public void setTaskType(TaskType taskType){
+        typeCategory = taskType;
+
+    }
+
+    public TaskType getTaskType(){
+        return typeCategory;
     }
 
     // Sets the task's start date after checking to make sure the given date is valid
@@ -110,5 +123,16 @@ public class RecurringTask extends Task{
     // Returns the integer value for the recurring tasks frequency
     public int getFrequency() {
         return frequency;
+    }
+
+    // Task type class
+    public enum TaskType{
+        CLASS,
+        STUDY,
+        SLEEP,
+        EXERCISE,
+        WORK,
+        MEAL
+
     }
 }
