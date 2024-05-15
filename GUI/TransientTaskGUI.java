@@ -94,14 +94,14 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
 
         // general info 
         String name = taskNameTextArea.getText();
-        int startTimeMinute = Integer.parseInt(startTimeMinArea.getText());
-        int startTimeHour = Integer.parseInt(startTimeHourTextArea.getText());
-        int durationHour = Integer.parseInt(durationHourArea.getText());
-        int durationMinutes = Integer.parseInt(durationMinArea.getText());
-        int dateYear = Integer.parseInt(dateYearTextArea.getText());
-        int dateMonth = Integer.parseInt(dateMonthTextArea.getText());
-        int dateDay = Integer.parseInt(dateDayTextArea.getText());
-        boolean am = ampm.getSelection().toString().equals("AM");
+        int startTimeMinute = Integer.parseInt(startTimeMinArea.getText().trim());
+        int startTimeHour = Integer.parseInt(startTimeHourTextArea.getText().trim());
+        int durationHour = Integer.parseInt(durationHourArea.getText().trim());
+        int durationMinutes = Integer.parseInt(durationMinArea.getText().trim());
+        int dateYear = Integer.parseInt(dateYearTextArea.getText().trim());
+        int dateMonth = Integer.parseInt(dateMonthTextArea.getText().trim());
+        int dateDay = Integer.parseInt(dateDayTextArea.getText().trim());
+        boolean am = ampm.getSelection().toString().equals("AM"); // default is false if nothing is selected
 
         // transient task
         TransientTask.TypeCategory typeCategory;
