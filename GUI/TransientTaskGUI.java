@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TransientTaskGUI {
+public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
     public JPanel getTransientTaskGUI(){
         JLabel taskTypeTLabel = new JLabel("Task Type: ");
 
@@ -27,6 +27,8 @@ public class TransientTaskGUI {
         taskTypePanel.setOpaque(false);
         taskTypePanel.setLayout(new BoxLayout(taskTypePanel,  BoxLayout.Y_AXIS));
 
+        taskTypePanel.add(this.createTaskInfoGUIJPanel());
+
         taskTypePanel.add(taskTypeTLabel);
         taskTypePanel.add(appointmentButton);
         taskTypePanel.add(shoppingButton);
@@ -47,6 +49,7 @@ public class TransientTaskGUI {
                 if (e.getSource() == createButton){
                     // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
 
+                    //createTaskPanel.getComponent(dateDayTextArea)
                     JOptionPane.showMessageDialog(null, "Info Saved");
                 }
             }
