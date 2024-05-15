@@ -7,6 +7,10 @@ public class AntiTask extends Task {
         super(name, startTime, duration, date);  
     }
 
+    public AntiTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay){
+        super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
+    }
+
     /**
      * Filters out anti-tasks and their corresponding recurring task instances from the provided schedule.
      * 
