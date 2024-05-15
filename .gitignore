@@ -21,4 +21,6 @@
 /Sleep.class
 /Study.class
 /*.class
-/*iml
+/*.iml
+/.idea
+/.vscode
