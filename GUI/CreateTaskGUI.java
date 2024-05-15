@@ -100,7 +100,7 @@ public class CreateTaskGUI {
             JPanel recurringTaskPanel = new JPanel();
             recurringTaskPanel.add(recurringText);
             //recurringTaskPanel.add(this.createTaskInfoGUIJPanel());
-            recurringTaskPanel.add(new RecurringTaskGUI().getRecurringTaskGUI());
+            recurringTaskPanel.add(new RecurringTaskGUI(controller).getRecurringTaskGUI());
             recurringTaskPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
             recurringTaskPanel.setBackground(new Color(245, 245, 255));
             topPanel.add(recurringTaskPanel, "4");

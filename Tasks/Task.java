@@ -9,7 +9,7 @@ public class Task {
         //empty constructor 
     }
 
-    Task(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
+    Task(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) throws Exception {
         this.name = name;
         setStartTime(startTimeHour, startTimeMinute, AM);
         setDuration(durationHour, durationMinutes);

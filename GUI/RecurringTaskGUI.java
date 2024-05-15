@@ -1,15 +1,27 @@
 package GUI;
 
 import javax.swing.*;
+
+import Tasks.Controller;
+import Tasks.RecurringTask;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
+        private Controller controller;
+        private ButtonGroup recurringTaskButtonsButtonGroup = new ButtonGroup();
+        private ButtonGroup frequencyButtonsButtonGroup = new ButtonGroup();
+
+        public RecurringTaskGUI(Controller controller){
+                this.controller = controller; // the controller should be the one from the main PSS cuz it has all the info
+        }
+
+
 	public JPanel getRecurringTaskGUI() {
 		// Frequency
 		JLabel frequencyLabel = new JLabel("Frequency: ");
-        ButtonGroup frequencyButtonsButtonGroup = new ButtonGroup();
         JRadioButton dailyButton = new JRadioButton("Daily (1)");
         JRadioButton weeklyButton = new JRadioButton("Weekly(1)");
         dailyButton.setOpaque(false);
@@ -24,7 +36,6 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
         
 		// Task type
 		JLabel taskTypeTLabel = new JLabel("Task Type: ");
-        ButtonGroup recurringTaskButtonsButtonGroup = new ButtonGroup();
         JRadioButton classButton = new JRadioButton("Class");
         JRadioButton studyButton = new JRadioButton("Study");
         JRadioButton sleepButton = new JRadioButton("Sleep");
@@ -86,8 +97,17 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
                     public void actionPerformed(ActionEvent e){
                             if (e.getSource() == createButton){
                                     // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
+                                   
+                                try {
+                                        createRecurringTask();
+                                } catch (Exception e1) {
+                                        JOptionPane.showMessageDialog(null, e1.getMessage());
 
-                                    JOptionPane.showMessageDialog(null, "Info Saved");
+                                }
+                                
+                                        JOptionPane.showMessageDialog(null, "Info Saved");
+
+                
                             }
                     }
             });
@@ -114,4 +134,54 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
                 return button;
         }
 
+        private Exception createRecurringTask() throws Exception{
+                // general info 
+        String name = taskNameTextArea.getText();
+        int startTimeMinute = Integer.parseInt(startTimeMinArea.getText().trim());
+        int startTimeHour = Integer.parseInt(startTimeHourTextArea.getText().trim());
+        int durationHour = Integer.parseInt(durationHourArea.getText().trim());
+        int durationMinutes = Integer.parseInt(durationMinArea.getText().trim());
+        int dateYear = Integer.parseInt(dateYearTextArea.getText().trim());
+        int dateMonth = Integer.parseInt(dateMonthTextArea.getText().trim());
+        int dateDay = Integer.parseInt(dateDayTextArea.getText().trim());
+        boolean am = ampm.getSelection().toString().equals("AM"); // default is false if nothing is selected
+
+        // transient task
+        RecurringTask.TaskType typeCategory;
+        switch (recurringTaskButtonsButtonGroup.getSelection().toString()) {
+            case("Class"):
+                typeCategory = RecurringTask.TaskType.CLASS;
+                break;
+            case("Study"):
+                typeCategory = RecurringTask.TaskType.STUDY;
+                break;
+            case("Sleep"):
+                typeCategory = RecurringTask.TaskType.SLEEP;
+                break;
+            case("Exercise"):
+                typeCategory = RecurringTask.TaskType.EXERCISE;
+                break;
+           case("Work"):
+                typeCategory = RecurringTask.TaskType.WORK;
+                break;
+            case("Meal"):
+                typeCategory = RecurringTask.TaskType.MEAL;
+                break;
+            default:
+                typeCategory = null;
+                break;
+        }
+
+        int frequency;
+        if( frequencyButtonsButtonGroup.getSelection().toString().equals("Daily (1)")){
+                frequency = 1;
+        }else{
+                frequency = 7;
+        }
+
+        return controller.createRecurringTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, dateMonth, dateDay, frequency, typeCategory);
+
+
+        
+        }
 }
