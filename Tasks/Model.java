@@ -10,6 +10,9 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import Tasks.RecurringTask.TaskType;
+import Tasks.TransientTask.TypeCategory;
+
 public class Model {
     LinkedList<Task> taskList = new LinkedList<Task>();
 
@@ -24,7 +27,7 @@ public class Model {
     public void createTask(Task newTask) throws Exception {
     	for(Task task : taskList) {
     		//Verify if name is unique
-    		if(task.getName() == newTask.getName())
+    		if(task.getName().equals(newTask.getName()))
     			throw new Exception("A task with name" + newTask.getName() + "already exists!");
     		
     		//Verify that task doesn't overlap with other tasks
@@ -44,7 +47,7 @@ public class Model {
      */
     public Task findTask(String name) {
     	for(Task task : taskList) {
-    		if(task.getName() == name) {
+    		if(task.getName().equals(name)) {
     			return task;
     		}
     	}
@@ -62,7 +65,7 @@ public class Model {
      */
     public void editTask(Task editedTask) throws Exception {
     	for(Task task : taskList) {
-    		if(task.getName() == editedTask.getName()) {
+    		if(task.getName().equals(editedTask.getName())) {
     			if(verifyTask(editedTask)) {
     				taskList.remove(task);
     				taskList.add(editedTask);
@@ -82,23 +85,6 @@ public class Model {
         Task taskToDelete = findTask(name);
         if(taskToDelete == null) throw new Exception("Task to delete does not match names with any tasks in the schedule!");
         
-		/*
-        switch(taskToDelete.getTypeCategory()) {
-        case RECURRING:
-        	//any antitasks associated with this recurring task are deleted
-        	//STUB
-        	break;
-        case TRANSIENT:
-        	taskList.remove(taskToDelete);
-        	break;
-        case ANTITASK:
-        	//if deleting antitask would leave a conflict between two recurring tasks
-        	//or between a recurring and a transient task:
-        	//do NOT delete task, and throw an error
-        	//STUB
-        	break;
-        }
-		*/
 		if(taskToDelete instanceof RecurringTask){
 			//any antitasks associated with this recurring task are deleted
         	//STUB
@@ -120,7 +106,8 @@ public class Model {
      * @param	fileName	 Name of the json file to create
      * @throws Exception 
      */
-    public void writeData(String fileName) throws Exception {        
+    @SuppressWarnings("unchecked")
+	public void writeData(String fileName) throws Exception {        
         PrintWriter writer = null;
         try {
         	writer = new PrintWriter(fileName+".json");
@@ -131,18 +118,16 @@ public class Model {
         		jo.put("StartTime", task.getStartTime());
         		jo.put("Duration", task.getDuration());
         		
-        		switch(task.getClass().toString()) {
-        		case "RECURRING":
-        			//jo.put("Frequency", task.getFrequency());
-        			//jo.put("StartDate", task.getStartDate());
-        			//jo.put("EndDate", task.getEndDate())
-        			break;
-        		case "TRANSIENT":
-        			//STUB
-        			break;
-        		case "ANTITASK":
-        			//STUB
-        			break;
+        		if(task instanceof RecurringTask) {
+        			jo.put("Task", "Recurring");
+        			jo.put("TypeCategory", ((RecurringTask)task).getTaskType());
+        			jo.put("Frequency", ((RecurringTask)task).getFrequency());
+        			jo.put("EndDate", ((RecurringTask)task).getEndDate());
+        		} else if (task instanceof TransientTask) {
+        			jo.put("Task", "Transient");
+        			jo.put("TypeCategory", ((TransientTask)task).getTaskType());
+        		} else if (task instanceof AntiTask) {
+        			jo.put("Task", "Anti");
         		}
         		
         		JSONArray ja = new JSONArray();
@@ -174,13 +159,36 @@ public class Model {
         for(Object o : ja) {
         	JSONObject jo = (JSONObject) o;
         	try {
-				createTask(new Task(
-					(String)jo.get("Name"),
-					(TypeCategory)jo.get("TypeCategory"),
-					(float)jo.get("StartTime"),
-					(float)jo.get("Duration"),
-					(int)jo.get("Date")
-				));
+        		switch((String)jo.get("TypeCategory")) {
+        		case "Recurring":
+        			createTask(new RecurringTask(
+        					(String)jo.get("Name"),
+        					(TaskType)jo.get("TypeCategory"),
+        					(double)jo.get("StartTime"),
+        					(double)jo.get("Duration"),
+        					(int)jo.get("Date"),
+        					(int)jo.get("EndDate"),
+        					(int)jo.get("Frequency")
+        				));
+        			break;
+        		case "Transient":
+        			createTask(new TransientTask(
+        					(String)jo.get("Name"),
+        					(TypeCategory)jo.get("TypeCategory"),
+        					(double)jo.get("StartTime"),
+        					(double)jo.get("Duration"),
+        					(int)jo.get("Date")
+        				));
+        			break;
+        		case "AntiTask":
+        			createTask(new AntiTask(
+        					(String)jo.get("Name"),
+        					(double)jo.get("StartTime"),
+        					(double)jo.get("Duration"),
+        					(int)jo.get("Date")
+        				));
+        			break;
+        		}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -193,59 +201,14 @@ public class Model {
     
     private boolean verifyTask(Task taskToVerify) {
 		for(Task task : taskList) {
-	    	switch(taskToVerify.getTypeCategory()) {
-	    	case RECURRING:
-	    		//Verify that every instance of taskToVerify does not overlap with any task
-	    		
-	    		break;
-	    	case TRANSIENT:
-
-				if(task.getTypeCategory() == TypeCategory.RECURRING) {
-					//Verify that every instance of recurring task does not overlap with taskToVerify
-					
-				}
-	    		break;
-	    	case ANTITASK:
-	    		//Verify that taskToVerify does not overlap with any transient or antitasks.
-	    		//Verify that taskToVerify matches with an instance of a recurring task
-	    		break;
-			default:
-				break;
-	    	}
+			if(taskToVerify instanceof TransientTask) {
+				//stub
+			} else if (taskToVerify instanceof RecurringTask) {
+				//stub
+			} else if (taskToVerify instanceof AntiTask) {
+				//stub
+			}
 		}
-    	return true;
-    }
-    
-    private boolean verifyTransient(int checkDate, double checkStartTime, double checkDuration, int verifyDate, double verifyStartTime, double verifyDuration) {
-		if(checkDate == verifyDate) {
-			if(checkStartTime == verifyStartTime)
-				return false;
-			if(checkStartTime < verifyStartTime &&
-					checkStartTime + checkDuration > verifyStartTime)
-				return false;
-			if(verifyStartTime + verifyDuration > checkStartTime)
-				return false;
-		}
-			
-		return true;
-    }
-    
-    private boolean verifyReccurring(Task taskToVerify, Task recurringTask) {
-    	int firstDate = recurringTask.getDate();
-    	
-    	for(int currentDate = firstDate; currentDate < taskToVerify.getDate(); currentDate + (RecurringTask)recurringTask.getFrequency()) {
-    		if (verifyTransient(
-						currentDate,
-						recurringTask.getStartTime(),
-						recurringTask.getDuration(),
-						taskToVerify.getDate(),
-						taskToVerify.getStartTime(),
-						taskToVerify.getDuration()
-					)) {
-    			return false;
-    		}
-    	}
-    	
     	return true;
     }
 }
