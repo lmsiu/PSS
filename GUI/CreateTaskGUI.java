@@ -113,30 +113,30 @@ public class CreateTaskGUI {
             JPanel antiTaskPanel = new JPanel();
             antiTaskPanel.add(antiText);
             antiTaskPanel.setLayout(new BoxLayout(antiTaskPanel,  BoxLayout.Y_AXIS));
-            antiTaskPanel.add(new CreateTaskInfoGeneralGUI().createTaskInfoGUIJPanel());
+            antiTaskPanel.add(new AntiTaskGUI(controller).createAntiTaskJPanel());
             antiTaskPanel.setBackground(new Color(245, 245, 255));
-            // Not gonna make a new gui class for the antitask so I'll just put the buttons in here
-            homeButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
+            // // Not gonna make a new gui class for the antitask so I'll just put the buttons in here
+            // homeButton.addActionListener(new ActionListener() {
+            //     public void actionPerformed(ActionEvent evt) {
 
-                    // Returns to the original panel
-                    CardLayout cardLayout = (CardLayout) topPanel.getLayout();
-                    cardLayout.first(topPanel);
+            //         // Returns to the original panel
+            //         CardLayout cardLayouts = (CardLayout) topPanel.getLayout();
+            //         cardLayout.first(topPanel);
 
-                }
-            });
-            createButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e){
-                    if (e.getSource() == createButton){
-                        // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
+            //     }
+            // });
+            // createButton.addActionListener(new ActionListener() {
+            //     public void actionPerformed(ActionEvent e){
+            //         if (e.getSource() == createButton){
+            //             // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
+            //             createAntiTask();
+            //             JOptionPane.showMessageDialog(null, "Info Saved");
+            //         }
+            //     }
+            // });
 
-                        JOptionPane.showMessageDialog(null, "Info Saved");
-                    }
-                }
-            });
-
-            antiTaskPanel.add(createButton);
-            antiTaskPanel.add(homeButton);
+            // antiTaskPanel.add(createButton);
+            // antiTaskPanel.add(homeButton);
 
             antiTaskPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
             topPanel.add(antiTaskPanel, "5");
@@ -170,83 +170,4 @@ public class CreateTaskGUI {
     }
 
 
-    // // returns gui for basic values needed for a general task
-    // public JPanel createTaskInfoGUIJPanel() {
-    //     // panel for everything
-    //     JPanel generalInfoPanel = new JPanel();
-    //     generalInfoPanel.setLayout(new BoxLayout(generalInfoPanel,  BoxLayout.Y_AXIS));
-    //     generalInfoPanel.setBackground(new Color(245, 245, 255));
-
-    //     // Name
-    //     JLabel createTaskText = new JLabel("Task name: ");
-    //     JTextArea taskNameTextArea = new JTextArea("Enter a task name");
-    //     JPanel namePanel = new JPanel();
-    //     namePanel.add(createTaskText);
-    //     namePanel.add(taskNameTextArea);
-
-    //     //  date
-    //     JLabel dateText = new JLabel("Task Date:    Year: ");
-    //     JTextArea dateYearTextArea = new JTextArea("Year");
-    //     JLabel dateMonthText = new JLabel(" Month: ");
-    //     JTextArea dateMonthTextArea = new JTextArea("Month");
-    //     JLabel dateDayText = new JLabel(" Day: ");
-    //     JTextArea dateDayTextArea = new JTextArea("Day");
-    //     dateText.setOpaque(false);
-    //     dateMonthText.setOpaque(false);
-    //     dateDayText.setOpaque(false);
-    //     JPanel datePanel = new JPanel();
-    //     datePanel.add(dateText);
-    //     datePanel.add(dateYearTextArea);
-    //     datePanel.add(dateMonthText);
-    //     datePanel.add(dateMonthTextArea);
-    //     datePanel.add(dateDayText);
-    //     datePanel.add(dateDayTextArea);
-
-    //     // duration
-    //     JLabel durationText = new JLabel("Duration: Hours: ");
-    //     JTextArea durationHour = new JTextArea("Hours: ");
-    //     JLabel durationMinuteText = new JLabel(" Minutes: ");
-    //     JTextArea durationMinArea = new JTextArea(" Minutes: ");
-    //     JPanel durationPanel = new JPanel();
-    //     durationPanel.add(durationText);
-    //     durationPanel.add(durationHour);
-    //     durationPanel.add(durationMinuteText);
-    //     durationPanel.add(durationMinArea);
-
-    //     // start time
-    //     JLabel startTimeText = new JLabel("Start time: Hour: ");
-    //     JTextArea startTimeHour = new JTextArea("Hour: ");
-    //     JLabel startTimeMinuteText = new JLabel(" Minute: ");
-    //     JTextArea startTimeMinArea = new JTextArea(" Minutes: ");
-
-    //     // am or pm radio buttons
-    //     ButtonGroup ampm = new ButtonGroup();
-    //     JRadioButton amButton = new JRadioButton("AM");
-    //     JRadioButton pmButton = new JRadioButton("PM");
-    //     // adding to the button group to ensure that only one button at a time can be selected.
-    //     ampm.add(amButton);
-    //     ampm.add(pmButton);
-
-    //     // start time
-    //     JPanel startTimePanel = new JPanel();
-    //     startTimePanel.add(startTimeText);
-    //     startTimePanel.add(startTimeHour);
-    //     startTimePanel.add(startTimeMinuteText);
-    //     startTimePanel.add(startTimeMinArea);
-    //     startTimePanel.add(amButton);
-    //     startTimePanel.add(pmButton);
-
-    //     // Adding each panel to the main generalinfo panel
-    //     generalInfoPanel.add(namePanel);
-    //     generalInfoPanel.add(datePanel);
-    //     generalInfoPanel.add(durationPanel);
-    //     generalInfoPanel.add(startTimePanel);
-    //     namePanel.setOpaque(false);
-    //     datePanel.setOpaque(false);
-    //     durationPanel.setOpaque(false);
-    //     startTimePanel.setOpaque(false);
-
-    //     return generalInfoPanel;
-
-    // }
 }
