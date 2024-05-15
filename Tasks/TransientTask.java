@@ -1,21 +1,12 @@
 package Tasks;
-import java.util.*;
 
 public class TransientTask extends Task {
- //   private String name;
     private TypeCategory typeCategory;
-    // private float startTime;
-    // private float duration;
-    // private int date;
 
     // Constructor for TransientTask
-    TransientTask (String name, TypeCategory typeCategory, float startTime, float duration, int date) {
+    TransientTask(String name, TypeCategory typeCategory, double startTime, double duration, int date) {
         super(name, startTime, duration, date);
-        // this.name = name;
         setTaskType(typeCategory);
-        // this.startTime = startTime;
-        // this.duration = duration;
-        // this.date = date;
     }
 
     TransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TypeCategory typeCategory){
