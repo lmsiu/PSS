@@ -11,6 +11,17 @@ public class RecurringTask extends Task{
         this.typeCategory = typeCat;
         this.endDate = endDate;
         this.frequency = frequency;
+
+        String dateString = Integer.toString(startDate);
+        int year = Integer.parseInt(dateString.substring(0, 4));
+        int month = Integer.parseInt(dateString.substring(4, 6));
+        int day = Integer.parseInt(dateString.substring(6, 8));
+        try {
+			setDate(year, month, day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     RecurringTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, int startDate, int endDate, int frequency, TaskType taskType) throws Exception{
@@ -79,5 +90,18 @@ public class RecurringTask extends Task{
 
         return details;
 
+    }
+
+    @Override
+    public String toString() {
+    	String dateString = Integer.toString(endDate);
+        int year = Integer.parseInt(dateString.substring(0, 4));
+        int month = Integer.parseInt(dateString.substring(4, 6));
+        int day = Integer.parseInt(dateString.substring(6, 8));
+        
+        return super.toString() + "\n" +
+        		"End date: " + year + "-" + month + "-" + day + "\n" +
+                "Frequency: " + frequency + "\n" +
+               "Type Category: " + typeCategory;
     }
 }

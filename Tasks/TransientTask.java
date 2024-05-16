@@ -7,6 +7,17 @@ public class TransientTask extends Task {
     TransientTask(String name, TypeCategory typeCategory, double startTime, double duration, int date) {
         super(name, startTime, duration, date);
         setTaskType(typeCategory);
+
+        String dateString = Integer.toString(date);
+        int year = Integer.parseInt(dateString.substring(0, 4));
+        int month = Integer.parseInt(dateString.substring(4, 6));
+        int day = Integer.parseInt(dateString.substring(6, 8));
+        try {
+			setDate(year, month, day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     TransientTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay, TypeCategory typeCategory) throws Exception{

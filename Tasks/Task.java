@@ -1,4 +1,7 @@
 package Tasks;
+
+import java.util.Calendar;
+
 public class Task {
     private String name;
     private double startTime;
@@ -29,6 +32,16 @@ public class Task {
         this.date = date;
         this.startTime = startTime;
         
+        String dateString = Integer.toString(date);
+        int year = Integer.parseInt(dateString.substring(0, 4));
+        int month = Integer.parseInt(dateString.substring(4, 6));
+        int day = Integer.parseInt(dateString.substring(6, 8));
+        try {
+			setDate(year, month, day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
 
