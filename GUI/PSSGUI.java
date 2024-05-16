@@ -8,13 +8,17 @@ import javax.swing.*;
 
 import Tasks.Controller;
 import Tasks.Model;
+import Tasks.Viewer;
 
 
 public class PSSGUI{
     // controller that will control everything
 
     public static void main(String args[]){
-        Controller controller = new Controller(new Model());
+        // model, controller, and viewer variables for their use. there should only be one for each run to save all the current data
+        Model model = new Model();
+        Controller controller = new Controller(model);
+        Viewer viewer = new Viewer(model);
 
         // Creating instance of JFrame
         JFrame frame = new JFrame("PSS");
@@ -151,6 +155,16 @@ public class PSSGUI{
             JPanel deleteTaskPanel = new DeleteTaskGUI(controller).creatDeleteTaskPanel();
             panelHolder.add(deleteTaskPanel, "4");
             cardLayout.show(panelHolder, "4");
+
+        });
+
+        printScheduleButton.addActionListener(e->{
+            // displays the schedule on the command line
+            viewer.displayAllSchedule();
+            
+            // uncomment this code to display the schedule on a pop up
+            //JOptionPane.showMessageDialog(null, viewer.displayAllSchedule());
+            // to do this, displayAllSchedule will need to return a string of the scheudle written out
 
         });
     }
