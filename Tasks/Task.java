@@ -6,7 +6,11 @@ public class Task {
     private String name;
     private double startTime;
     private double duration;
-    private int date;
+    private int date; // yyyymmdd
+    private int year;
+    private int week;
+    private int month;
+    private int day; // single date
 
     Task(){
         //empty constructor 
@@ -28,6 +32,16 @@ public class Task {
         this.date = date;
         this.startTime = startTime;
         
+        String dateString = Integer.toString(date);
+        int year = Integer.parseInt(dateString.substring(0, 4));
+        int month = Integer.parseInt(dateString.substring(4, 6));
+        int day = Integer.parseInt(dateString.substring(6, 8));
+        try {
+			setDate(year, month, day);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     
 
@@ -147,7 +161,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task: " + name + "\n" +
-               "Type Category: " + typeCategory + "\n" +
+               // "Type Category: " + typeCategory + "\n" +
                "Start Time: " + startTime + "\n" +
                "Duration: " + duration + "\n" +
                "Date: " + year + "-" + month + "-" + day;
