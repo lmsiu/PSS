@@ -102,4 +102,17 @@ public boolean correspondsToRecurringTask(RecurringTask recurringTask) {
            this.getDate() == recurringTask.getDate() &&
            this.getDuration() == recurringTask.getDuration();
 }
+// Helper method to find the corresponding recurring task
+public static RecurringTask findCorrespondingRecurringTask(Model model, int startTimeHour, int startTimeMinute, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) {
+    for (Task task : model.returnTaskList()) {
+        if (task instanceof RecurringTask) {
+            RecurringTask recurringTask = (RecurringTask) task;
+            AntiTask antiTask = new AntiTask("", startTimeMinute, startTimeHour, false, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
+            if (antiTask.correspondsToRecurringTask(recurringTask)) {
+                return recurringTask; // Found corresponding recurring task
+            }
+        }
+    }
+    return null; // Corresponding recurring task not found
+}
 }
