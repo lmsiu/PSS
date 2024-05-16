@@ -75,30 +75,35 @@ public class Model {
     	throw new Exception("Edited Task does not match names with any Task in the schedule!");
     }
 
-    /**
-     * Delete a task given its name
-     *
-     * @param	name	 Name of the task to be deleted
-     * @throws Exception Task to delete does not match names with any tasks in the schedule!
-     */
-    public void deleteTask(String name) throws Exception {
-        Task taskToDelete = findTask(name);
-        if(taskToDelete == null) throw new Exception("Task to delete does not match names with any tasks in the schedule!");
-        
-		if(taskToDelete instanceof RecurringTask){
-			//any antitasks associated with this recurring task are deleted
-        	//STUB
-		}else if(taskToDelete instanceof TransientTask){
-			taskList.remove(taskToDelete);
+/**
+ * Delete a task given its name
+ *
+ * @param   name     Name of the task to be deleted
+ * @throws Exception Task to delete does not match names with any tasks in the schedule!
+ */
+public void deleteTask(String name) throws Exception {
+    Task taskToDelete = findTask(name);
+    if(taskToDelete == null) throw new Exception("Task to delete does not match names with any tasks in the schedule!");
 
-		}else if(taskToDelete instanceof AntiTask){
-			//if deleting antitask would leave a conflict between two recurring tasks
-        	//or between a recurring and a transient task:
-        	//do NOT delete task, and throw an error
-        	//STUB
-
-		}
+    if(taskToDelete instanceof RecurringTask){
+        // Delete associated anti-tasks
+        for(Task task : taskList) {
+            if(task instanceof AntiTask && ((AntiTask) task).correspondsToRecurringTask((RecurringTask) taskToDelete)) {
+                taskList.remove(task);
+            }
+        }
+    } else if(taskToDelete instanceof AntiTask){
+        // Check for conflicts before deleting anti-task
+        if(((AntiTask) taskToDelete).hasConflictsAfterDeletion(this)) {
+            throw new Exception("Deleting this anti-task would leave a conflict between tasks!");
+        } else {
+            taskList.remove(taskToDelete);
+        }
+    } else if(taskToDelete instanceof TransientTask){
+        taskList.remove(taskToDelete);
     }
+}
+
 
     /**
      * Write schedule to a json file
