@@ -115,29 +115,6 @@ public class CreateTaskGUI {
             antiTaskPanel.setLayout(new BoxLayout(antiTaskPanel,  BoxLayout.Y_AXIS));
             antiTaskPanel.add(new AntiTaskGUI(controller).createAntiTaskJPanel());
             antiTaskPanel.setBackground(new Color(245, 245, 255));
-            // // Not gonna make a new gui class for the antitask so I'll just put the buttons in here
-            // homeButton.addActionListener(new ActionListener() {
-            //     public void actionPerformed(ActionEvent evt) {
-
-            //         // Returns to the original panel
-            //         CardLayout cardLayouts = (CardLayout) topPanel.getLayout();
-            //         cardLayout.first(topPanel);
-
-            //     }
-            // });
-            // createButton.addActionListener(new ActionListener() {
-            //     public void actionPerformed(ActionEvent e){
-            //         if (e.getSource() == createButton){
-            //             // Insert code for however we want to get the inputted/selected values below. Pops up with a "Info saved" dialog to verify the button worked
-            //             createAntiTask();
-            //             JOptionPane.showMessageDialog(null, "Info Saved");
-            //         }
-            //     }
-            // });
-
-            // antiTaskPanel.add(createButton);
-            // antiTaskPanel.add(homeButton);
-
             antiTaskPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
             topPanel.add(antiTaskPanel, "5");
             cardLayout.show(topPanel, "5");
