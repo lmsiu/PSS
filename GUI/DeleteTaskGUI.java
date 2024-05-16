@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.jar.JarEntry;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -17,62 +16,63 @@ import javax.swing.JTextArea;
 import Tasks.Controller;
 import Tasks.Task;
 
-public class SearchTaskGUI {
+public class DeleteTaskGUI {
     private Controller controller;
-    SearchTaskGUI(Controller controller){
+
+    public DeleteTaskGUI(Controller controller){
         this.controller = controller;
     }
 
-    public JPanel createSearchTaskPanel(){
-        JPanel searchTaskPanel = new JPanel();
-        searchTaskPanel.setOpaque(false);
-        searchTaskPanel.setLayout(new BoxLayout(searchTaskPanel,  BoxLayout.Y_AXIS));
+    public JPanel creatDeleteTaskPanel(){
+        JPanel deleteTaskPanel = new JPanel();
+        deleteTaskPanel.setOpaque(false);
+        deleteTaskPanel.setLayout(new BoxLayout(deleteTaskPanel,  BoxLayout.Y_AXIS));
 
         JLabel taskNameLabel = new JLabel("Task name: ");
         JTextArea taskNameArea = new JTextArea();
-        JButton searchButton = makeButton("Search");
+        JButton deleteButton = makeButton("Delete");
 
         JButton homeButton = new JButton(("Return Home"));
 
         taskNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         taskNameArea.setAlignmentX(Component.CENTER_ALIGNMENT);
-        searchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        deleteButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        searchTaskPanel.add(taskNameLabel);
-        searchTaskPanel.add(taskNameArea);
-        searchTaskPanel.add(searchButton);
-        searchTaskPanel.add(homeButton);
+        deleteTaskPanel.add(taskNameLabel);
+        deleteTaskPanel.add(taskNameArea);
+        deleteTaskPanel.add(deleteButton);
+        deleteTaskPanel.add(homeButton);
 
-        searchButton.addActionListener(e -> {
-            Task task = controller.searchTask(taskNameArea.getText());
+        
 
-            if(task == null){
-                JOptionPane.showMessageDialog(null, "Could not find a task with the name: " + taskNameArea.getText());
-
-            }else{
-                JOptionPane.showMessageDialog(null, task.getTaskDetails());
-
+        deleteButton.addActionListener(e -> {
+            try {
+                controller.deleteTask(taskNameArea.getText());
+                JOptionPane.showMessageDialog(null, "Task deleted!");
+            } catch (Exception e1) {
+                JOptionPane.showMessageDialog(null, e1.getMessage());
             }
+            
         });
 
-         // Returns to the original panel from the start
-         homeButton.addActionListener(new ActionListener() {
+        homeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
 
                 // Returns to the original panel
-                Container prevPanel = searchTaskPanel.getParent();
+                Container prevPanel = deleteTaskPanel.getParent();
                 Container topPanel = prevPanel.getParent();
                 CardLayout cardLayout = (CardLayout) topPanel.getLayout();
                 cardLayout.first(topPanel);
 
             }
         });
+        
 
 
-        return searchTaskPanel;
+        return deleteTaskPanel;
     }
-
+    
     private JButton makeButton(String text){
         JButton button = new JButton(text);
 
@@ -82,5 +82,4 @@ public class SearchTaskGUI {
         return button;
 
     }
-    
 }

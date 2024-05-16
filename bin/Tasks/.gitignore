@@ -1,1 +1,12 @@
-/*.class
+/AntiTask.class
+/Cancellation.class
+/Controller.class
+/Model.class
+/RecurringTask$TaskType.class
+/RecurringTask.class
+/RecurringTaskTest.class
+/Task.class
+/TaskNotCreatedEexcption.class
+/TaskTest.class
+/TransientTask$TypeCategory.class
+/TransientTask.class
