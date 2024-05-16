@@ -167,6 +167,42 @@ public class PSSGUI{
             // to do this, displayAllSchedule will need to return a string of the scheudle written out
 
         });
+
+        printWeekButton.addActionListener(e->{
+            // display for what week to show
+            CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+
+            // panel format
+            JPanel printWeekPanel = new JPanel();
+            printWeekPanel.setLayout(new BoxLayout(schedulePanel, BoxLayout.Y_AXIS));
+            printWeekPanel.setPreferredSize(new java.awt.Dimension(300,200));
+            printWeekPanel.setBackground(new Color(245, 245, 255));
+            panelHolder.add(printWeekPanel, "5");
+            cardLayout.show(panelHolder, "5");
+
+            // text 
+            JLabel printWeekTextLabel = new JLabel("What week would you like to see?");
+            JTextArea printWeekTextArea = new JTextArea("Exp. 3");
+            JButton printWeekExcecutionButton = new JButton("See schedule");
+
+            printWeekTextLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            printWeekTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+            printWeekExcecutionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            printWeekPanel.add(printWeekTextLabel);
+            printWeekPanel.add(printWeekTextArea);
+            printWeekPanel.add(printWeekExcecutionButton);
+
+            printWeekExcecutionButton.addActionListener(e1->{
+                //prints the schedule based on the week to the screen
+                viewer.displayWeekSchedule(Integer.parseInt(printWeekTextArea.getText()));
+
+                 // uncomment this code to display the schedule on a pop up
+            //JOptionPane.showMessageDialog(null, viewer.displayWeekSchedule(Integer.parseInt(printWeekTextArea.getText())));
+            // to do this, displayAllSchedule will need to return a string of the scheudle written out
+            });
+
+        });
     }
     // Prompts user to choose a file from the user's system
     private static void viewScheduleButtonAction(ActionEvent ae) {
