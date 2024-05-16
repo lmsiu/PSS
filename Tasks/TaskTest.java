@@ -1,12 +1,14 @@
 package Tasks;
 public class TaskTest{
 
-public static void main(String[] args)
+public static void main(String[] args) throws Exception
     {
         Task task = new Task();
 
         task.setStartTime(12, 15, true);
         System.out.println(task.getStartTime());
+
+        System.out.println(task.getTaskDetails());
 
         task.setStartTime(12, 59, true);
         System.out.println(task.getStartTime());
