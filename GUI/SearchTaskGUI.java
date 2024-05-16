@@ -35,7 +35,7 @@ public class SearchTaskGUI {
             Task task = controller.searchTask(taskNameArea.getText());
 
             if(task == null){
-                JOptionPane.showMessageDialog(null, "Could not find a task with the name: " + taskNameArea.getName());
+                JOptionPane.showMessageDialog(null, "Could not find a task with the name: " + taskNameArea.getText());
 
             }else{
                 JOptionPane.showMessageDialog(null, task.getTaskDetails());
