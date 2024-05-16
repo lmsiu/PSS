@@ -68,4 +68,16 @@ public class RecurringTask extends Task{
         MEAL
 
     }
+
+    // For printing details
+    @Override
+    public String getTaskDetails(){
+
+        String details = super.getTaskDetails() + "\nEnd date: " + endDate + 
+        "\nFrequency: " + frequency
+        + "\nTask type: " + typeCategory.toString();
+
+        return details;
+
+    }
 }

@@ -111,7 +111,7 @@ public class Task {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    protected String getTaskDetails(){
+    public String getTaskDetails(){
         String details = "Task name: " + name 
         + "\nStart time: " + startTime + 
         "\nDuration: " + duration + 
