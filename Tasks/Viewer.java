@@ -3,11 +3,12 @@ package Tasks;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Viewer {
     // To access all the task from the taskList from Model class
     private Model model;
-    private LinkedList<Task> taskList;
+    private List<Task> taskList;
     
     public Viewer(Model model) {
         this.model = model;
