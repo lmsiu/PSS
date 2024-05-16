@@ -120,6 +120,36 @@ public class Task {
         return details;
 
     }
+
+    public void setWeek(int dateYear, int dateMonth, int dateDay) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(dateYear, dateMonth - 1, dateDay);
+        week = calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+    
+    public int getWeek() {
+        return week;
+    }
+
+    public void setMonth(int dateMonth) {
+        this.month = dateMonth;
+    }
+    
+    public int getMonth() {
+        return month;
+    }
+
+
+    // How to print this Task class
+    @Override
+    public String toString() {
+        return "Task: " + name + "\n" +
+               "Type Category: " + typeCategory + "\n" +
+               "Start Time: " + startTime + "\n" +
+               "Duration: " + duration + "\n" +
+               "Date: " + year + "-" + month + "-" + day;
+    }
+
 }
 
 // exception for if the task is not initalized
