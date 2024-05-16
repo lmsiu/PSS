@@ -174,7 +174,7 @@ public class PSSGUI{
 
             // panel format
             JPanel printWeekPanel = new JPanel();
-            printWeekPanel.setLayout(new BoxLayout(schedulePanel, BoxLayout.Y_AXIS));
+            printWeekPanel.setLayout(new BoxLayout(printWeekPanel, BoxLayout.Y_AXIS));
             printWeekPanel.setPreferredSize(new java.awt.Dimension(300,200));
             printWeekPanel.setBackground(new Color(245, 245, 255));
             panelHolder.add(printWeekPanel, "5");
@@ -199,6 +199,42 @@ public class PSSGUI{
 
                  // uncomment this code to display the schedule on a pop up
             //JOptionPane.showMessageDialog(null, viewer.displayWeekSchedule(Integer.parseInt(printWeekTextArea.getText())));
+            // to do this, displayAllSchedule will need to return a string of the scheudle written out
+            });
+
+        });
+
+        printMonthButton.addActionListener(e->{
+            // display for what week to show
+            CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+
+            // panel format
+            JPanel printMonthPanel = new JPanel();
+            printMonthPanel.setLayout(new BoxLayout(printMonthPanel, BoxLayout.Y_AXIS));
+            printMonthPanel.setPreferredSize(new java.awt.Dimension(300,200));
+            printMonthPanel.setBackground(new Color(245, 245, 255));
+            panelHolder.add(printMonthPanel, "6");
+            cardLayout.show(panelHolder, "6");
+
+            // text 
+            JLabel printMonthTextLabel = new JLabel("What month would you like to see?");
+            JTextArea printMonthTextArea = new JTextArea("Exp. 3");
+            JButton printMonthExcecutionButton = new JButton("See schedule");
+
+            printMonthTextLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            printMonthTextArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+            printMonthExcecutionButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+            printMonthPanel.add(printMonthTextLabel);
+            printMonthPanel.add(printMonthTextArea);
+            printMonthPanel.add(printMonthExcecutionButton);
+
+            printMonthExcecutionButton.addActionListener(e1->{
+                //prints the schedule based on the week to the screen
+                viewer.displayMonthSchedule(Integer.parseInt(printMonthTextArea.getText()));
+
+                 // uncomment this code to display the schedule on a pop up
+            //JOptionPane.showMessageDialog(null, viewer.displayMonthSchedule(Integer.parseInt(printMonthTextArea.getText()));
             // to do this, displayAllSchedule will need to return a string of the scheudle written out
             });
 
