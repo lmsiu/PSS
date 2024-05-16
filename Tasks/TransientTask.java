@@ -27,9 +27,9 @@ public class TransientTask extends Task {
 
     // Set the Transient Task type (Appointment, Shopping, and Visit)
     public void setTaskType(TypeCategory transientTaskType) {
-        if (transientTaskType != TypeCategory.APPOINTMENT &&
-            transientTaskType != TypeCategory.SHOPPING &&
-            transientTaskType != TypeCategory.VISIT) {
+        if (transientTaskType != TypeCategory.Appointment &&
+            transientTaskType != TypeCategory.Shopping &&
+            transientTaskType != TypeCategory.Visit) {
             throw new IllegalArgumentException("Invalid task type. Must be one of: APPOINTMENT, SHOPPING, VISIT");
         }
         this.typeCategory = transientTaskType;
@@ -42,9 +42,9 @@ public class TransientTask extends Task {
 
     // enum declaration for Type Categories for Transient Task
     public enum TypeCategory {
-        APPOINTMENT,
-        SHOPPING,
-        VISIT
+        Appointment,
+        Shopping,
+        Visit
     }
 
     @Override

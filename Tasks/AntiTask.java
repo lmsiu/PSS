@@ -12,7 +12,7 @@ public class AntiTask extends Task {
         super(name, startTime, duration, date);  
     }
 
-    public AntiTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay){
+    public AntiTask(String name,  int startTimeMinute, int startTimeHour, boolean AM, int durationHour, int durationMinutes, int dateYear, int dateMonth, int dateDay) throws Exception{
         super(name, startTimeMinute, startTimeHour, AM, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
     }
 
@@ -107,7 +107,13 @@ public static RecurringTask findCorrespondingRecurringTask(Model model, int star
     for (Task task : model.returnTaskList()) {
         if (task instanceof RecurringTask) {
             RecurringTask recurringTask = (RecurringTask) task;
-            AntiTask antiTask = new AntiTask("", startTimeMinute, startTimeHour, false, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
+            AntiTask antiTask = null;
+			try {
+				antiTask = new AntiTask("", startTimeMinute, startTimeHour, false, durationHour, durationMinutes, dateYear, dateMonth, dateDay);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             if (antiTask.correspondsToRecurringTask(recurringTask)) {
                 return recurringTask; // Found corresponding recurring task
             }

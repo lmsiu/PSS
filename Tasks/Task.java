@@ -33,9 +33,9 @@ public class Task {
         this.startTime = startTime;
         
         String dateString = Integer.toString(date);
-        int year = Integer.parseInt(dateString.substring(0, 4));
-        int month = Integer.parseInt(dateString.substring(4, 6));
-        int day = Integer.parseInt(dateString.substring(6, 8));
+        year = Integer.parseInt(dateString.substring(0, 4));
+        month = Integer.parseInt(dateString.substring(4, 6));
+        day = Integer.parseInt(dateString.substring(6, 8));
         try {
 			setDate(year, month, day);
 		} catch (Exception e) {

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,7 +15,7 @@ import Tasks.RecurringTask.TaskType;
 import Tasks.TransientTask.TypeCategory;
 
 public class Model {
-    LinkedList<Task> taskList = new LinkedList<Task>();
+    private List<Task> taskList = new LinkedList<>();
 
     /**
      * Add a task to the schedule. If the name of the task is not unique, throws an exception. If the task overlaps with
@@ -119,20 +120,20 @@ public void deleteTask(String name) throws Exception {
         	for(Task task : taskList) {
         		JSONObject jo = new JSONObject();
         		jo.put("Name", task.getName());
-        		jo.put("Date", task.getDate());
         		jo.put("StartTime", task.getStartTime());
         		jo.put("Duration", task.getDuration());
         		
         		if(task instanceof RecurringTask) {
-        			jo.put("Task", "Recurring");
-        			jo.put("TypeCategory", ((RecurringTask)task).getTaskType());
+        			jo.put("Type", ((RecurringTask)task).getTaskType());
         			jo.put("Frequency", ((RecurringTask)task).getFrequency());
+        			jo.put("StartDate", task.getDate());
         			jo.put("EndDate", ((RecurringTask)task).getEndDate());
         		} else if (task instanceof TransientTask) {
-        			jo.put("Task", "Transient");
-        			jo.put("TypeCategory", ((TransientTask)task).getTaskType());
+        			jo.put("Date", task.getDate());
+        			jo.put("Type", ((TransientTask)task).getTaskType());
         		} else if (task instanceof AntiTask) {
-        			jo.put("Task", "Anti");
+        			jo.put("Date", task.getDate());
+        			jo.put("Type", "Cancellation");
         		}
         		
         		JSONArray ja = new JSONArray();
@@ -157,40 +158,50 @@ public void deleteTask(String name) throws Exception {
     	JSONArray ja;
     	try {
     		ja = (JSONArray) parser.parse(new FileReader(fileName+".json"));
+    		System.out.println(fileName+".json");
     	} catch(FileNotFoundException e) {
     		throw new Exception("File " + fileName + " not found!");
     	}
         
         for(Object o : ja) {
         	JSONObject jo = (JSONObject) o;
+        	System.out.println(jo);
         	try {
-        		switch((String)jo.get("TypeCategory")) {
-        		case "Recurring":
+        		String type = (String)jo.get("Type");
+        		switch(type) {
+        		case "Class":
+        		case "Study":
+        		case "Sleep":
+        		case "Exercise":
+        		case "Work":
+        		case "Meal":
         			createTask(new RecurringTask(
         					(String)jo.get("Name"),
-        					(TaskType)jo.get("TypeCategory"),
+        					TaskType.valueOf(type),
         					(double)jo.get("StartTime"),
         					(double)jo.get("Duration"),
-        					(int)jo.get("Date"),
-        					(int)jo.get("EndDate"),
-        					(int)jo.get("Frequency")
+        					(int)(long)jo.get("StartDate"),
+        					(int)(long)jo.get("EndDate"),
+        					(int)(long)jo.get("Frequency")
         				));
         			break;
-        		case "Transient":
+        		case "Appointment":
+        		case "Shopping":
+        		case "Visit":
         			createTask(new TransientTask(
         					(String)jo.get("Name"),
-        					(TypeCategory)jo.get("TypeCategory"),
+        					TypeCategory.valueOf(type),
         					(double)jo.get("StartTime"),
         					(double)jo.get("Duration"),
-        					(int)jo.get("Date")
+        					(int)(long)jo.get("Date")
         				));
         			break;
-        		case "AntiTask":
+        		case "Cancellation":
         			createTask(new AntiTask(
         					(String)jo.get("Name"),
         					(double)jo.get("StartTime"),
         					(double)jo.get("Duration"),
-        					(int)jo.get("Date")
+        					(int)(long)jo.get("Date")
         				));
         			break;
         		}
@@ -200,7 +211,7 @@ public void deleteTask(String name) throws Exception {
         }
     }
 
-    public LinkedList<Task> returnTaskList() {
+    public List<Task> returnTaskList() {
         return taskList;
     }
     

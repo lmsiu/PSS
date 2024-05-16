@@ -71,12 +71,12 @@ public class RecurringTask extends Task{
 
     // Task type class
     public enum TaskType{
-        CLASS,
-        STUDY,
-        SLEEP,
-        EXERCISE,
-        WORK,
-        MEAL
+        Class,
+        Study,
+        Sleep,
+        Exercise,
+        Work,
+        Meal
 
     }
 
