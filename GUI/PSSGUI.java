@@ -45,11 +45,13 @@ public class PSSGUI{
         JButton printMonthButton = makeButton("Print Month");
         JButton editTaskButton = makeButton("Edit Task");
         JButton searchTaskButton = makeButton("Search Task");
+        JButton deleteTaskButton = makeButton("Delete Task");
         printScheduleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         printWeekButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         printMonthButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         editTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         searchTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        deleteTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Can't write to schedule until a schedule has been selected
         writeToScheduleButton.setEnabled(false);
@@ -58,6 +60,7 @@ public class PSSGUI{
         printMonthButton.setEnabled(false);
         editTaskButton.setEnabled(false);
         searchTaskButton.setEnabled(false);
+        deleteTaskButton.setEnabled(false);
 
         // Panel setup
         JPanel panelHolder = new JPanel();
@@ -97,6 +100,8 @@ public class PSSGUI{
         schedulePanel.add(editTaskButton);
         schedulePanel.add(Box.createVerticalStrut(5));
         schedulePanel.add(searchTaskButton);
+        schedulePanel.add(Box.createVerticalStrut(5));
+        schedulePanel.add(deleteTaskButton);
 
         panel.add(schedulePanel);
         panelHolder.add(panel, "1");
@@ -116,6 +121,7 @@ public class PSSGUI{
                 printMonthButton.setEnabled(true);
                 editTaskButton.setEnabled(true);
                 searchTaskButton.setEnabled(true);
+                deleteTaskButton.setEnabled(true);
                 schedulePanelText.setText("Schedule Viewing/Editing");
             }
         });
@@ -138,6 +144,14 @@ public class PSSGUI{
             panelHolder.add(createTaskPanel, "3");
             cardLayout.show(panelHolder, "3");
             
+        });
+
+        deleteTaskButton.addActionListener(e->{
+            CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+            JPanel deleteTaskPanel = new DeleteTaskGUI(controller).creatDeleteTaskPanel();
+            panelHolder.add(deleteTaskPanel, "4");
+            cardLayout.show(panelHolder, "4");
+
         });
     }
     // Prompts user to choose a file from the user's system
