@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
+
 import Tasks.TransientTask;
 import Tasks.Controller;
 
@@ -101,9 +103,22 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
         int dateDay = Integer.parseInt(dateDayTextArea.getText().trim());
         boolean am = ampm.getSelection().toString().equals("AM"); // default is false if nothing is selected
 
+
+        boolean found = false;
+        String taskTypeString = "";
+        for (Enumeration<AbstractButton> buttons = transientTaskButtonsButtonGroup.getElements(); buttons.hasMoreElements() && found == false;) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                taskTypeString = button.getText();
+                found = true;
+                
+            }
+        }
+
         // transient task
         TransientTask.TypeCategory typeCategory;
-        switch (transientTaskButtonsButtonGroup.getSelection().toString()) {
+        switch (taskTypeString) {
             case("Appointment"):
                 typeCategory = TransientTask.TypeCategory.APPOINTMENT;
                 break;
@@ -118,6 +133,8 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
                 break;
         }
 
+        
+    
         controller.createTransientTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, typeCategory);
 
     }
