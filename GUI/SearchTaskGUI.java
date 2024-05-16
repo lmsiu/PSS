@@ -1,5 +1,10 @@
 package GUI;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.jar.JarEntry;
 
 import javax.swing.BoxLayout;
@@ -27,9 +32,17 @@ public class SearchTaskGUI {
         JTextArea taskNameArea = new JTextArea();
         JButton searchButton = makeButton("Search");
 
+        JButton homeButton = new JButton(("Return Home"));
+
+        taskNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        taskNameArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        searchButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         searchTaskPanel.add(taskNameLabel);
         searchTaskPanel.add(taskNameArea);
         searchTaskPanel.add(searchButton);
+        searchTaskPanel.add(homeButton);
 
         searchButton.addActionListener(e -> {
             Task task = controller.searchTask(taskNameArea.getText());
@@ -39,6 +52,19 @@ public class SearchTaskGUI {
 
             }else{
                 JOptionPane.showMessageDialog(null, task.getTaskDetails());
+
+            }
+        });
+
+         // Returns to the original panel from the start
+         homeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+
+                // Returns to the original panel
+                Container prevPanel = searchTaskPanel.getParent();
+                Container topPanel = prevPanel.getParent();
+                CardLayout cardLayout = (CardLayout) topPanel.getLayout();
+                cardLayout.first(topPanel);
 
             }
         });

@@ -1,5 +1,11 @@
 package GUI;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,9 +32,19 @@ public class DeleteTaskGUI {
         JTextArea taskNameArea = new JTextArea();
         JButton deleteButton = makeButton("Delete");
 
+        JButton homeButton = new JButton(("Return Home"));
+
+        taskNameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        taskNameArea.setAlignmentX(Component.CENTER_ALIGNMENT);
+        deleteButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        homeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         deleteTaskPanel.add(taskNameLabel);
         deleteTaskPanel.add(taskNameArea);
         deleteTaskPanel.add(deleteButton);
+        deleteTaskPanel.add(homeButton);
+
+        
 
         deleteButton.addActionListener(e -> {
             try {
@@ -39,6 +55,19 @@ public class DeleteTaskGUI {
             }
             
         });
+
+        homeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+
+                // Returns to the original panel
+                Container prevPanel = deleteTaskPanel.getParent();
+                Container topPanel = prevPanel.getParent();
+                CardLayout cardLayout = (CardLayout) topPanel.getLayout();
+                cardLayout.first(topPanel);
+
+            }
+        });
+        
 
 
         return deleteTaskPanel;
