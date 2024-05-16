@@ -8,6 +8,7 @@ import Tasks.RecurringTask;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
 public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
         private Controller controller;
@@ -23,7 +24,7 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
 		// Frequency
 		JLabel frequencyLabel = new JLabel("Frequency: ");
         JRadioButton dailyButton = new JRadioButton("Daily (1)");
-        JRadioButton weeklyButton = new JRadioButton("Weekly(1)");
+        JRadioButton weeklyButton = new JRadioButton("Weekly(7)");
         dailyButton.setOpaque(false);
         weeklyButton.setOpaque(false);
         frequencyButtonsButtonGroup.add(dailyButton);
@@ -145,9 +146,21 @@ private void createRecurringTask() throws Exception{
         int dateDay = Integer.parseInt(dateDayTextArea.getText().trim());
         boolean am = ampm.getSelection().toString().equals("AM"); // default is false if nothing is selected
 
+        boolean found = false;
+        String taskTypeString = "";
+        for (Enumeration<AbstractButton> buttons = recurringTaskButtonsButtonGroup.getElements(); buttons.hasMoreElements() && found == false;) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                taskTypeString = button.getText();
+                found = true;
+                
+            }
+        }
+
         // transient task
         RecurringTask.TaskType typeCategory;
-        switch (recurringTaskButtonsButtonGroup.getSelection().toString()) {
+        switch (taskTypeString) {
             case("Class"):
                 typeCategory = RecurringTask.TaskType.CLASS;
                 break;
@@ -172,7 +185,17 @@ private void createRecurringTask() throws Exception{
         }
 
         int frequency;
-        if( frequencyButtonsButtonGroup.getSelection().toString().equals("Daily (1)")){
+        String frequencyString = "";
+
+        for (Enumeration<AbstractButton> buttons = recurringTaskButtonsButtonGroup.getElements(); buttons.hasMoreElements();) {
+                AbstractButton button = buttons.nextElement();
+    
+                if (button.isSelected()) {
+                        frequencyString = button.getText();
+                }
+        }
+    
+        if( frequencyString.equals("Daily (1)")){
                 frequency = 1;
         }else{
                 frequency = 7;
