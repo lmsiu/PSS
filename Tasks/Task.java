@@ -1,9 +1,15 @@
 package Tasks;
+import java.util.Calendar;
+
 public class Task {
     private String name;
     private double startTime;
     private double duration;
-    private int date;
+    private int date; // yyyymmdd
+    private int year;
+    private int week;
+    private int month;
+    private int day; // single date
 
     Task(){
         //empty constructor 
@@ -144,7 +150,7 @@ public class Task {
     @Override
     public String toString() {
         return "Task: " + name + "\n" +
-               "Type Category: " + typeCategory + "\n" +
+               // "Type Category: " + typeCategory + "\n" +
                "Start Time: " + startTime + "\n" +
                "Duration: " + duration + "\n" +
                "Date: " + year + "-" + month + "-" + day;

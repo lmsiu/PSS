@@ -44,4 +44,10 @@ public class TransientTask extends Task {
         return details;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+               "Type Category: " + typeCategory;
+    }
+
 }
