@@ -14,6 +14,7 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
         private Controller controller;
         private ButtonGroup recurringTaskButtonsButtonGroup = new ButtonGroup();
         private ButtonGroup frequencyButtonsButtonGroup = new ButtonGroup();
+        private JTextArea endDateTextArea = new JTextArea("YYYYMMDD");
 
         public RecurringTaskGUI(Controller controller){
                 this.controller = controller; // the controller should be the one from the main PSS cuz it has all the info
@@ -35,6 +36,12 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
         frequencyPanel.add(dailyButton);
         frequencyPanel.add(weeklyButton);
         
+        // End Date
+        JLabel endDateLabel = new JLabel("End Date: ");      
+        JPanel endDatePanel = new JPanel();      
+        endDatePanel.add(endDateLabel);
+        endDatePanel.add(endDateTextArea);
+
 		// Task type
 		JLabel taskTypeTLabel = new JLabel("Task Type: ");
         JRadioButton classButton = new JRadioButton("Class");
@@ -89,6 +96,7 @@ public class RecurringTaskGUI extends CreateTaskInfoGeneralGUI {
         buttonsPanel.setOpaque(false);
         recurringTaskPanel.setLayout(new BoxLayout(recurringTaskPanel,  BoxLayout.Y_AXIS));
         recurringTaskPanel.add(this.createTaskInfoGUIJPanel());
+        recurringTaskPanel.add(endDatePanel);
         recurringTaskPanel.add(taskTypePanel);
         recurringTaskPanel.add(frequencyPanel);
         recurringTaskPanel.add(buttonsPanel);
@@ -144,6 +152,9 @@ private void createRecurringTask() throws Exception{
         int dateYear = Integer.parseInt(dateYearTextArea.getText().trim());
         int dateMonth = Integer.parseInt(dateMonthTextArea.getText().trim());
         int dateDay = Integer.parseInt(dateDayTextArea.getText().trim());
+        String formattedDate = String.format("%04d%02d%02d", dateYear, dateMonth, dateDay);
+        int startDate = Integer.parseInt(formattedDate);
+        int endDate = Integer.parseInt(endDateTextArea.getText().trim());
         boolean am = ampm.getSelection().toString().equals("AM"); // default is false if nothing is selected
 
         boolean found = false;
@@ -201,6 +212,6 @@ private void createRecurringTask() throws Exception{
                 frequency = 7;
         }
 
-        controller.createRecurringTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, dateMonth, dateDay, frequency, typeCategory);
+        controller.createRecurringTask(name, startTimeMinute, startTimeHour, am, durationHour, durationMinutes, dateYear, dateMonth, dateDay, startDate, endDate, frequency, typeCategory);
         }
 }
