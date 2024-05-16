@@ -120,13 +120,13 @@ public class TransientTaskGUI extends CreateTaskInfoGeneralGUI {
         TransientTask.TypeCategory typeCategory;
         switch (taskTypeString) {
             case("Appointment"):
-                typeCategory = TransientTask.TypeCategory.APPOINTMENT;
+                typeCategory = TransientTask.TypeCategory.Appointment;
                 break;
             case("Shopping"):
-                typeCategory = TransientTask.TypeCategory.SHOPPING;
+                typeCategory = TransientTask.TypeCategory.Shopping;
                 break;
             case("Visit"):
-                typeCategory = TransientTask.TypeCategory.VISIT;
+                typeCategory = TransientTask.TypeCategory.Visit;
                 break;
             default:
                 typeCategory = null;

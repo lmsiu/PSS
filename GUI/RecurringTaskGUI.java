@@ -173,22 +173,22 @@ private void createRecurringTask() throws Exception{
         RecurringTask.TaskType typeCategory;
         switch (taskTypeString) {
             case("Class"):
-                typeCategory = RecurringTask.TaskType.CLASS;
+                typeCategory = RecurringTask.TaskType.Class;
                 break;
             case("Study"):
-                typeCategory = RecurringTask.TaskType.STUDY;
+                typeCategory = RecurringTask.TaskType.Study;
                 break;
             case("Sleep"):
-                typeCategory = RecurringTask.TaskType.SLEEP;
+                typeCategory = RecurringTask.TaskType.Sleep;
                 break;
             case("Exercise"):
-                typeCategory = RecurringTask.TaskType.EXERCISE;
+                typeCategory = RecurringTask.TaskType.Exercise;
                 break;
            case("Work"):
-                typeCategory = RecurringTask.TaskType.WORK;
+                typeCategory = RecurringTask.TaskType.Work;
                 break;
             case("Meal"):
-                typeCategory = RecurringTask.TaskType.MEAL;
+                typeCategory = RecurringTask.TaskType.Meal;
                 break;
             default:
                 typeCategory = null;
