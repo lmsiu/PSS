@@ -44,16 +44,20 @@ public class PSSGUI{
         JButton printWeekButton = makeButton("Print Week");
         JButton printMonthButton = makeButton("Print Month");
         JButton editTaskButton = makeButton("Edit Task");
+        JButton searchTaskButton = makeButton("Search Task");
         printScheduleButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         printWeekButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         printMonthButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         editTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        searchTaskButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         // Can't write to schedule until a schedule has been selected
         writeToScheduleButton.setEnabled(false);
         printScheduleButton.setEnabled(false);
         printWeekButton.setEnabled(false);
         printMonthButton.setEnabled(false);
         editTaskButton.setEnabled(false);
+        searchTaskButton.setEnabled(false);
 
         // Panel setup
         JPanel panelHolder = new JPanel();
@@ -91,6 +95,8 @@ public class PSSGUI{
         schedulePanel.add(printMonthButton);
         schedulePanel.add(Box.createVerticalStrut(5));
         schedulePanel.add(editTaskButton);
+        schedulePanel.add(Box.createVerticalStrut(5));
+        schedulePanel.add(searchTaskButton);
 
         panel.add(schedulePanel);
         panelHolder.add(panel, "1");
@@ -109,6 +115,7 @@ public class PSSGUI{
                 printWeekButton.setEnabled(true);
                 printMonthButton.setEnabled(true);
                 editTaskButton.setEnabled(true);
+                searchTaskButton.setEnabled(true);
                 schedulePanelText.setText("Schedule Viewing/Editing");
             }
         });
@@ -123,6 +130,14 @@ public class PSSGUI{
             panelHolder.add(createTaskPanel, "2");
             cardLayout.show(panelHolder, "2");
 
+        });
+
+        searchTaskButton.addActionListener(e->{
+            CardLayout cardLayout = (CardLayout) panelHolder.getLayout();
+            JPanel createTaskPanel = new SearchTaskGUI(controller).createSearchTaskPanel();
+            panelHolder.add(createTaskPanel, "3");
+            cardLayout.show(panelHolder, "3");
+            
         });
     }
     // Prompts user to choose a file from the user's system
