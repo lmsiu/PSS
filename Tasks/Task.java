@@ -110,6 +110,16 @@ public class Task {
     private boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
+
+    public String getTaskDetails(){
+        String details = "Task name: " + name 
+        + "\nStart time: " + startTime + 
+        "\nDuration: " + duration + 
+        "\nDate: " + date;
+
+        return details;
+
+    }
 }
 
 // exception for if the task is not initalized
