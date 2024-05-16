@@ -36,4 +36,12 @@ public class TransientTask extends Task {
         VISIT
     }
 
+    @Override
+    public String getTaskDetails(){
+        String details = super.getTaskDetails() + 
+        "\nTask type: " + typeCategory.toString();
+
+        return details;
+    }
+
 }
