@@ -29,7 +29,7 @@ public class Model {
     	for(Task task : taskList) {
     		//Verify if name is unique
     		if(task.getName().equals(newTask.getName()))
-    			throw new Exception("A task with name" + newTask.getName() + "already exists!");
+    			throw new Exception("A task with name \"" + newTask.getName() + "\" already exists!");
     		
     		//Verify that task doesn't overlap with other tasks
     		if(!verifyTask(task))
@@ -40,6 +40,18 @@ public class Model {
     	taskList.add(newTask);
     }
     
+	public void addRecurringTask(String name, TaskType taskType, double startTime, double duration, int startDate, int endDate, int frequency) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate start = LocalDate.parse(String.valueOf(startDate), formatter);
+        LocalDate end = LocalDate.parse(String.valueOf(endDate), formatter);
+
+        for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(frequency)) {
+            int taskDate = Integer.parseInt(date.format(formatter));
+            RecurringTask newTask = new RecurringTask(name, taskType, startTime, duration, taskDate, endDate, frequency);
+            createTask(newTask); // Assuming createTask method will handle uniqueness and conflict checks
+        }
+    }
+
     /**
      * Search for a task given its name. Returns the task if found, null if it doesn't exist.
      *
@@ -219,12 +231,39 @@ public void deleteTask(String name) throws Exception {
 		for(Task task : taskList) {
 			if(taskToVerify instanceof TransientTask) {
 				//stub
+				if (taskToVerify instanceof TransientTask || taskToVerify instanceof RecurringTask) {
+					if (tasksOverlap(taskToVerify, task)) {
+						return false;
+					}
 			} else if (taskToVerify instanceof RecurringTask) {
 				//stub
+				RecurringTask recurringTaskToVerify = (RecurringTask) taskToVerify;
+				LocalDate start = LocalDate.parse(String.valueOf(recurringTaskToVerify.getDate()), DateTimeFormatter.ofPattern("yyyyMMdd"));
+				LocalDate end = LocalDate.parse(String.valueOf(recurringTaskToVerify.getEndDate()), DateTimeFormatter.ofPattern("yyyyMMdd"));
+				int frequency = recurringTaskToVerify.getFrequency();
+
+				for (LocalDate date = start; !date.isAfter(end); date = date.plusDays(frequency)) {
+					Task instance = new Task(taskToVerify.getName(), taskToVerify.getStartTime(), taskToVerify.getDuration(), Integer.parseInt(date.format(DateTimeFormatter.ofPattern("yyyyMMdd"))));
+					if (tasksOverlap(instance, task)) {
+						return false;
+					}
 			} else if (taskToVerify instanceof AntiTask) {
 				//stub
 			}
 		}
     	return true;
     }
+
+	private boolean tasksOverlap(Task task1, Task task2) {
+		if (task1.getDate() != task2.getDate()) {
+			return false;
+		}
+	
+		double start1 = task1.getStartTime();
+		double end1 = task1.getStartTime + task1.getDuration();
+		double start2 = task2.getStartTime();
+		double end2 = task2.getStartTime() + task2.getDuration();
+	
+		return (start1 < end2 && end1 > start2);
+	}
 }
